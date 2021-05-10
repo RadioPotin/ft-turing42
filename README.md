@@ -8,7 +8,7 @@ creates an executable
 ```
 _build/default/src/ft-turing.exe
 ```
-to which you can feed a `.json` file in which a given Turing machine is defined.
+to which you can feed a `.json` file in which a given Turing machine is defined as well as an input to feed to said Turing Machine.
 
 # Testing
 ```
@@ -26,6 +26,7 @@ This will run all tests contained in the folder `test`.
 `<turingmachine.json>` being a file that defines a turing machine as follows:
 
 <ol>
+  
 **name:** The name of the described machine.
 
 **alphabet:** Both input and work alphabet of the machine merged into a single alphabet for simplicity’s sake, including the blank character. Each character of the alphabet must be a string of length strictly equal to 1.
@@ -41,6 +42,7 @@ This will run all tests contained in the folder `test`.
 **transitions:** A dictionnary of the machine’s transitions indexed by state name. Each transition is a list of dictionnaries, and each dictionnary describes the transition fora given character under the head of the machine. A transition is defined as follows:
 
 <ol>
+  
 **read:** The character of the machine’s alphabet on the tape under the machine’shead.
 
 **to_state:** The new state of the machine after the transition is done.
@@ -48,6 +50,8 @@ This will run all tests contained in the folder `test`.
 **write:** The character of the machine’s alphabet to write on the tape before moving the head.
 
 **action:** Movement of the head for this transition, either LEFT, or RIGHT
+
+</ol>
 
 *WIP*
 
