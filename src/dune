@@ -1,0 +1,11 @@
+(library
+ (public_name ft_turing)
+ (modules)
+ (libraries str)
+ (instrumentation
+  (backend bisect_ppx)))
+
+(executable
+ (public_name ft_turing)
+ (modules ft_turing)
+ (libraries ft_turing))

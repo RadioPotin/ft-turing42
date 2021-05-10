@@ -1,0 +1,4 @@
+(test
+ (name test_ft_turing)
+ (modules test_ft_turing)
+ (libraries ft_turing))
