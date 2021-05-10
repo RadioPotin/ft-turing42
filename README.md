@@ -1,4 +1,4 @@
-# ComputorV1 [![Actions Status](https://github.com/RadioPotin/ft-turing42/workflows/build/badge.svg)](https://github.com/RadioPotin/ft-turing42/actions) [![coverage percentage](https://raw.githubusercontent.com/RadioPotin/ft-turing42/gh-pages/coverage/badge.svg)](https://RadioPotin.github.io/ft-turing42/coverage/)
+# Ft_Turing [![Actions Status](https://github.com/RadioPotin/ft-turing42/workflows/build/badge.svg)](https://github.com/RadioPotin/ft-turing42/actions) [![coverage percentage](https://raw.githubusercontent.com/RadioPotin/ft-turing42/gh-pages/coverage/badge.svg)](https://RadioPotin.github.io/ft-turing42/coverage/)
 
 # Building
 ```
