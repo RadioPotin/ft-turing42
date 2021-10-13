@@ -18,8 +18,7 @@ let usage =
 
 let interpret jsonfile _input =
   Format.printf "READING MACHINE FROM: %s@." jsonfile;
-  let json = Yojson.Basic.from_file jsonfile in
-  let machine = Lang.to_machine json in
+  let machine = Lang.to_machine jsonfile in
   Pp.machine Format.std_formatter machine
 
 let ft_turing = Term.(const interpret $ jsonfile $ input)
