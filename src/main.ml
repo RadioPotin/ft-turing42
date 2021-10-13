@@ -10,11 +10,15 @@ let jsonfile =
   Arg.(value & pos 0 string "" & info [] ~docv:"jsonfile" ~doc)
 
 let usage =
-  let doc = "Evaluation of Turing Machine descriptions defined in a JSON file." in
+  let doc =
+    "Parsing, evaluation and execution of Turing Machine descriptions defined \
+     in a JSON file."
+  in
   let man =
     [ `S Manpage.s_bugs; `P "Email bug reports to <laradiopotin@gmail.com>." ]
   in
-  Term.info "Ft_Turing" ~version:"%%VERSION%%" ~doc ~exits:Term.default_exits ~man
+  Term.info "Ft_Turing" ~version:"%%VERSION%%" ~doc ~exits:Term.default_exits
+    ~man
 
 let interpret jsonfile _input =
   Format.printf "READING MACHINE FROM: %s@." jsonfile;
@@ -23,5 +27,4 @@ let interpret jsonfile _input =
 
 let ft_turing = Term.(const interpret $ jsonfile $ input)
 
-let () =
-  Term.exit @@ Term.eval (ft_turing, usage)
+let () = Term.exit @@ Term.eval (ft_turing, usage)

@@ -1,11 +1,5 @@
 open Yojson
 
-exception Invalid_type of string
-
-exception Not_found of string
-
-type symbols = string list
-
 type direction =
   | Left
   | Right
@@ -120,11 +114,11 @@ let to_transitions alphabet states field = function
   | `Assoc _l as t ->
     to_assoc_knv_list field t |> to_transition_table alphabet states
 
-let get_value_and_check err v check =
+let get_value_and_check errmsg v check =
   if check v then
     v
   else
-    Utils.error (Format.sprintf "%s %s" err v)
+    Utils.error (Format.sprintf "%s %s" errmsg v)
 
 let to_machine jsonfile =
   let json = Basic.from_file jsonfile in
