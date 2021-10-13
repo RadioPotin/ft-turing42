@@ -20,11 +20,14 @@ let usage =
   Term.info "Ft_Turing" ~version:"%%VERSION%%" ~doc ~exits:Term.default_exits
     ~man
 
-let interpret jsonfile _input =
-  Format.printf "READING MACHINE FROM: %s@." jsonfile;
-  let machine = Lang.to_machine jsonfile in
+let main jsonfile _input =
+  let ( (_name, _alphabet, _blank, _states, _initial, _finals, _transitions) as
+      machine ) =
+    Lang.to_machine jsonfile
+  in
+
   Pp.machine Format.std_formatter machine
 
-let ft_turing = Term.(const interpret $ jsonfile $ input)
+let ft_turing = Term.(const main $ jsonfile $ input)
 
 let () = Term.exit @@ Term.eval (ft_turing, usage)

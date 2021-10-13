@@ -37,7 +37,8 @@ Finals  : [ %a ]
     (Format.pp_print_list
        ~pp_sep:(fun fmt () -> Format.fprintf fmt ", ")
        (fun fmt state -> Format.fprintf fmt "%s" state) )
-    states initial_state
+    (List.of_seq (Hashtbl.to_seq_keys states))
+    initial_state
     (Format.pp_print_list
        ~pp_sep:(fun fmt () -> Format.fprintf fmt ", ")
        (fun fmt final -> Format.fprintf fmt "%s" final) )
