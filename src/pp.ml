@@ -69,10 +69,18 @@ let pp_tape fmt (tape, index) =
         Format.fprintf fmt "%c" s )
     tape
 
-let current_tape tape index transition = function
-  | true ->
+let blocked_tape current_head state read final_or_blocked print =
+  if print then
+    Format.fprintf Format.std_formatter {|[%a] (%s, %s) -> %s@.|} pp_tape
+      current_head state read final_or_blocked
+  else
+    Format.ifprintf Format.std_formatter {|[%a] (%s, %s) -> %s@.|} pp_tape
+      current_head state read final_or_blocked
+
+let current_tape tape index transition print =
+  if print then
     Format.fprintf Format.std_formatter {|[%a] %a@.|} pp_tape (tape, index)
       pp_transition transition
-  | false ->
+  else
     Format.ifprintf Format.std_formatter {|[%a] %a@.|} pp_tape (tape, index)
       pp_transition transition

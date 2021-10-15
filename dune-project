@@ -22,6 +22,12 @@
    (>= 4.08))
   (dune
    (>= 2.8))
+  (yojson
+   (>= 1.7.0))
+  (cmdliner
+   (>= 1.0.4))
+  (containers
+   (>= 3.5))
   (menhir
    (>= 2.1))
   (bisect_ppx
