@@ -1,7 +1,7 @@
 (library
  (public_name ft_turing)
- (modules lang pp utils)
- (libraries yojson cmdliner)
+ (modules lang pp utils execute)
+ (libraries yojson cmdliner containers)
  (instrumentation
   (backend bisect_ppx)))
 

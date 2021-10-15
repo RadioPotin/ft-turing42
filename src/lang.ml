@@ -151,52 +151,57 @@ let get_value_and_check errmsg v check =
   else
     Utils.error (Format.sprintf "%s %s" errmsg v)
 
+(** [convert_json jsonfile] takes [jsonfile] and converts it to a
+    [Yojson.Basic.t] json object *)
+let convert_json jsonfile =
+  if Sys.file_exists jsonfile then
+    Basic.from_file jsonfile
+  else
+    Utils.error (Format.sprintf "Impossible to read file")
+
+let get_name json jsonfile =
+  get_value_and_check "\"name\" field and filename are different:"
+    (to_string "name" json)
+    (String.equal (Filename.chop_extension jsonfile))
+
+let get_alphabet json =
+  let alphabet_field_value = to_string_list "alphabet" json in
+  if List.for_all (fun s -> String.length s = 1) alphabet_field_value then
+    alphabet_field_value
+  else
+    Utils.error "Alphabet must be a list of strings of length equal to 1."
+
+let get_blank json alphabet =
+  get_value_and_check "Alphabet does not contain blank:"
+    (to_string "blank" json) (fun v -> List.mem v alphabet)
+
+let get_initial json states =
+  get_value_and_check "States list does not contain initial state:"
+    (to_string "initial" json) (fun v -> List.mem v states)
+
+let get_final json states =
+  let finals_field_value = to_string_list "finals" json in
+  List.iter
+    (fun final ->
+      if List.mem final states then
+        ()
+      else
+        Utils.error final )
+    finals_field_value;
+  finals_field_value
+
 (** [to_machnie jsonfile] function parses the jsonfile and does all necessary
     sanity checks and conversions for the interpreter *)
 let to_machine jsonfile =
-  let json =
-    match Basic.from_file jsonfile with
-    | exception Basic.Finally (_e1, _e2) ->
-      Utils.error (Format.sprintf "Impossible to read file")
-    | t -> t
-  in
-  let name =
-    get_value_and_check "\"name\" field and filename are different:"
-      (to_string "name" json)
-      (String.equal (Filename.chop_extension jsonfile))
-  in
-  let alphabet =
-    let alphabet_field_value = to_string_list "alphabet" json in
-    if List.for_all (fun s -> String.length s = 1) alphabet_field_value then
-      alphabet_field_value
-    else
-      Utils.error "Alphabet must be a list of strings of length equal to 1."
-  in
-  let blank =
-    get_value_and_check "Alphabet does not contain blank:"
-      (to_string "blank" json) (fun v -> List.mem v alphabet)
-  in
+  let json = convert_json jsonfile in
+  let name = get_name json jsonfile in
+  (* Maybe check if an alphabet element is defined twice *)
+  let alphabet = get_alphabet json in
+  let blank = get_blank json alphabet in
   let states = to_string_list "states" json in
-  let initial =
-    get_value_and_check "States list does not contain initial state:"
-      (to_string "initial" json) (fun v -> List.mem v states)
-  in
-  let finals =
-    let finals_field_value = to_string_list "finals" json in
-    List.iter
-      (fun final ->
-        if List.mem final states then
-          ()
-        else
-          Utils.error final )
-      finals_field_value;
-    finals_field_value
-  in
+  let initial = get_initial json states in
+  (* Maybe check if a final state is defined twice *)
+  let finals = get_final json states in
   let states_tbl = to_states_tbl initial finals states in
-  let transitions_tbl =
-    let transition_fields_value_tbl =
-      to_transitions_tbl alphabet states "transitions" json
-    in
-    transition_fields_value_tbl
-  in
+  let transitions_tbl = to_transitions_tbl alphabet states "transitions" json in
   (name, alphabet, blank, states_tbl, initial, finals, transitions_tbl)

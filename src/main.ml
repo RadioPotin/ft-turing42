@@ -20,13 +20,14 @@ let usage =
   Term.info "Ft_Turing" ~version:"%%VERSION%%" ~doc ~exits:Term.default_exits
     ~man
 
-let main jsonfile _input =
-  let ( (_name, _alphabet, _blank, _states, _initial, _finals, _transitions) as
-      machine ) =
+let main jsonfile input =
+  let ( (_name, alphabet, blank, states_tbl, initial, _finals, transitions_tbl)
+      as machine ) =
     Lang.to_machine jsonfile
   in
-
-  Pp.machine Format.std_formatter machine
+  Pp.machine Format.std_formatter machine;
+  let machine = (alphabet, blank, initial, states_tbl, transitions_tbl) in
+  Execute.interpreter machine input
 
 let ft_turing = Term.(const main $ jsonfile $ input)
 
