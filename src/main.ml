@@ -26,7 +26,7 @@ let main jsonfile input =
     Lang.to_machine jsonfile
   in
   Pp.machine Format.std_formatter machine;
-  let machine = (alphabet, blank, initial, states_tbl, transitions_tbl) in
+  let machine = (alphabet, blank, initial, (states_tbl, transitions_tbl)) in
   Execute.interpreter machine input
 
 let ft_turing = Term.(const main $ jsonfile $ input)

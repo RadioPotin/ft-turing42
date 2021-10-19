@@ -69,7 +69,7 @@ let pp_tape fmt (tape, index) =
         Format.fprintf fmt "%c" s )
     tape
 
-let blocked_tape current_head state read final_or_blocked print =
+let blocked_tape current_head state read print final_or_blocked =
   if print then
     Format.fprintf Format.std_formatter {|[%a] (%s, %s) -> %s@.|} pp_tape
       current_head state read final_or_blocked

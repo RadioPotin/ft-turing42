@@ -190,7 +190,7 @@ let get_final json states =
     finals_field_value;
   finals_field_value
 
-(** [to_machnie jsonfile] function parses the jsonfile and does all necessary
+(** [to_machnine jsonfile] function parses the jsonfile and does all necessary
     sanity checks and conversions for the interpreter *)
 let to_machine jsonfile =
   let json = convert_json jsonfile in
