@@ -15,7 +15,7 @@ let is_final tbl state =
     | _, true -> true )
 
 (** [is_blocked tape state read index state_tbl print] *)
-let is_blocked tape state read index print =
+let is_blocked tape state read index ~print =
   let is_blocked =
     Pp.blocked_tape
       (CCVector.to_string ~sep:"" Fun.id tape, index)
@@ -29,7 +29,7 @@ let terminate current_state read print tape index state_tbl =
   if is_final state_tbl current_state then
     ()
   else
-    is_blocked tape current_state read index print
+    is_blocked tape current_state read index ~print
 
 (** [move_direction direction] converts a given action field direction to an
     incrementation or decrementation of the index in the recursive
@@ -42,7 +42,7 @@ let move_direction =
 
 let tape_size = ref 0
 
-let blank_char = ref "."
+let blank_char = ref ""
 
 let index_checker index tape =
   let size = CCVector.size tape in
@@ -91,13 +91,13 @@ let interpreter machine input =
   let alphabet, blank, initial, tables = machine in
   let initial_length =
     match String.length input with
-    | 0 -> 5
+    | 0 -> Utils.error "Invalid input"
     | n -> n
   in
   let tape1 = convert input blank (initial_length * 2) in
   let read = safe_read tape1 0 in
   if not (List.mem read alphabet) then
-    is_blocked tape1 initial read 0 true
+    is_blocked tape1 initial read 0 ~print:true
   else (
     blank_char := blank;
     execution ~print:false tables tape1 0 initial;
