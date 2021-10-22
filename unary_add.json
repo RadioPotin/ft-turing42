@@ -3,61 +3,69 @@
   "alphabet": [
     "1",
     ".",
-    "+",
-    "="
-  ],
-  "states": [
-    "q0",
-    "q1",
-    "q2",
-    "qf"
+    "+"
   ],
   "blank": ".",
-  "initial": "q0",
+  "states": [
+    "skip",
+    "swap_init",
+    "swap_left",
+    "swap_right",
+    "HALT"
+  ],
+  "initial": "skip",
   "finals": [
-    "qf"
+    "HALT"
   ],
   "transitions": {
-    "q0": [
+    "skip": [
       {
-        "read": "+",
-        "to_state": "q1",
+        "read": "1",
+        "to_state": "skip",
         "write": "1",
         "action": "RIGHT"
       },
       {
-        "read": "1",
-        "to_state": "q0",
-        "write": "1",
+        "read": ".",
+        "to_state": "HALT",
+        "write": ".",
+        "action": "RIGHT"
+      },
+      {
+        "read": "+",
+        "to_state": "swap_init",
+        "write": ".",
         "action": "RIGHT"
       }
     ],
-    "q1": [
+    "swap_init": [
       {
         "read": "1",
-        "to_state": "q1",
+        "to_state": "swap_left",
         "write": "1",
-        "action": "RIGHT"
-      },
-      {
-        "read": "=",
-        "to_state": "q2",
-        "write": ".",
         "action": "LEFT"
       },
       {
         "read": ".",
-        "to_state": "q2",
+        "to_state": "HALT",
         "write": ".",
-        "action": "LEFT"
+        "action": "RIGHT"
       }
     ],
-    "q2": [
+    "swap_left": [
+      {
+        "read": ".",
+        "to_state": "swap_right",
+        "write": "1",
+        "action": "RIGHT"
+      }
+    ],
+    "swap_right": [
       {
         "read": "1",
-        "to_state": "qf",
+        "to_state": "swap_init",
         "write": ".",
-        "action": "LEFT"
+        "action": "RIGHT"
       }
     ]
   }

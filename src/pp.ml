@@ -16,7 +16,12 @@ let header fmt name =
     divider
     ((78 - len) / 2)
     " " name
-    (((78 - len) / 2) + 1)
+    ( ((78 - len) / 2)
+    +
+    if len mod 2 = 0 then
+      0
+    else
+      1 )
     " " divider
 
 let pp_transition fmt ((state, read), (to_state, write, direction)) =
@@ -53,9 +58,9 @@ Finals  : [ %a ]
        ~pp_sep:(fun fmt () -> Format.fprintf fmt "@.")
        pp_transition )
     (List.sort
-       (fun ((s1, _c1), (to_state1, _, _)) ((s2, _c2), (to_state2, _, _)) ->
-         match compare (String.length s2) (String.length s1) with
-         | 0 -> compare (String.length to_state2) (String.length to_state1)
+       (fun ((s1, _c1), _) ((s2, _c2), _) ->
+         match compare s2 s1 with
+         | 0 -> compare (String.length s2) (String.length s1)
          | n -> n )
        (List.of_seq (Hashtbl.to_seq transitions)) )
     divider

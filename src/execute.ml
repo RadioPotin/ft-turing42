@@ -1,3 +1,12 @@
+(** [check_input input blank] does sanity checks on input and returns its length
+    if all is good *)
+let check_input input blank =
+  if String.contains input (String.get blank 0) then
+    Utils.error "Invalid input, blank character cannot be in input";
+  match String.length input with
+  | 0 -> Utils.error "Invalid input, length = 0"
+  | n -> n
+
 (** [convert input blank length] convert a string input into a resizable vector *)
 let convert input blank length =
   let tape = CCVector.make length blank in
@@ -21,7 +30,8 @@ let is_blocked tape state read index ~print =
       (CCVector.to_string ~sep:"" Fun.id tape, index)
       state read print
   in
-  is_blocked "BLOCKED"
+  is_blocked
+    (Format.sprintf "BLOCKED@.transition (%s, %s) is undefined" state read)
 
 (** [terminate current_state read print tape index state_tbl] is called when
     machine is estimated to be in a final or blocked state *)
@@ -89,11 +99,7 @@ let rec execution ~print ((state_tbl, transitions_tbl) as tables) tape index
     machine [machine] on the [input]. *)
 let interpreter machine input =
   let alphabet, blank, initial, tables = machine in
-  let initial_length =
-    match String.length input with
-    | 0 -> Utils.error "Invalid input"
-    | n -> n
-  in
+  let initial_length = check_input input blank in
   let tape1 = convert input blank (initial_length * 2) in
   let read = safe_read tape1 0 in
   if not (List.mem read alphabet) then
