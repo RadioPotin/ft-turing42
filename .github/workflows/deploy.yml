@@ -30,7 +30,7 @@ jobs:
           mv _build/default/_doc/_html doc/api
       - name: coverage
         run: |
-          opam exec -- dune build @all && dune runtest --instrument-with bisect_ppx
+          opam exec -- dune runtest --instrument-with bisect_ppx
           opam exec -- bisect-ppx-report html -o doc/coverage
       - name: coverage-badge
         run: |

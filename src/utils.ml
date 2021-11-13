@@ -1,8 +1,10 @@
+exception Error
+
 (** [error msg] used for all matters of interruption of the program thoughout
     execution *)
 let error msg =
   Format.eprintf "error: %s@." msg;
-  exit 1
+  raise Error
 
 (** [err_invalid_type std t field] is called whenever an error of typing occurs
     during parsing of json file *)
@@ -10,7 +12,7 @@ let err_invalid_type std t field =
   Format.eprintf "error: Invalid type %s for field: \"%s\"@."
     (Yojson.Basic.pretty_to_string ~std t)
     field;
-  exit 1
+  raise Error
 
 (** [assert_transition_ok transitbl t state_key read_key alphabet states]
     asserts a given transition is coherent and complies with specifications of

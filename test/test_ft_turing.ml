@@ -60,7 +60,11 @@ let pp_test_nb fmt com =
   Format.fprintf fmt "Test %d: %a" (test_number ()) comment com
 
 let get_machine fmt machinefile =
-  let machine = Lang.to_machine machinefile in
+  let machine =
+    match Lang.to_machine machinefile with
+    | exception Utils.Error -> exit 1
+    | machine -> machine
+  in
   Format.fprintf fmt "@.FILE: %s@.@." (Filename.basename machinefile);
   machine
 
@@ -81,8 +85,8 @@ let () =
   let fmt = Format.std_formatter in
   Format.fprintf fmt "LAUNCHING TESTS *********************@.";
 
-  let machine = get_machine fmt "test_machines/test_unary_sub_VALID.json" in
   pp_test_nb fmt "checking machine description";
+  let machine = get_machine fmt "test_machines/test_unary_sub_VALID.json" in
   compare_description machine
     "********************************************************************************\n\n\
      *                                                                              \
