@@ -24,9 +24,9 @@ let is_final tbl state =
     | _, true -> true )
 
 (** [is_blocked tape state read index state_tbl print] *)
-let is_blocked tape state read index ~print =
+let is_blocked fmt tape state read index ~print =
   let is_blocked =
-    Pp.blocked_tape
+    Pp.blocked_tape fmt
       (CCVector.to_string ~sep:"" Fun.id tape, index)
       state read print
   in
@@ -35,11 +35,11 @@ let is_blocked tape state read index ~print =
 
 (** [terminate current_state read print tape index state_tbl] is called when
     machine is estimated to be in a final or blocked state *)
-let terminate current_state read print tape index state_tbl =
+let terminate fmt current_state read print tape index state_tbl =
   if is_final state_tbl current_state then
     ()
   else
-    is_blocked tape current_state read index ~print
+    is_blocked fmt tape current_state read index ~print
 
 (** [move_direction direction] converts a given action field direction to an
     incrementation or decrementation of the index in the recursive
@@ -82,32 +82,35 @@ let safe_read tape index =
 (** [execution tables tape index current_state] recursively reads and writes on
     given [tape] at given [index] in regards to [current state] by following the
     transitions found in transitions and states [tables] *)
-let rec execution ~print ((state_tbl, transitions_tbl) as tables) tape index
+let rec execution fmt ~print ((state_tbl, transitions_tbl) as tables) tape index
     current_state =
   let index = index_checker index tape in
   let read = safe_read tape index in
-
   match Hashtbl.find_opt transitions_tbl (current_state, read) with
-  | None -> terminate current_state read print tape index state_tbl
+  | None -> terminate fmt current_state read print tape index state_tbl
   | Some ((next_state, write, direction) as transition) ->
     let current_tape = CCVector.to_string ~sep:"" Fun.id tape in
-    Pp.current_tape current_tape index ((current_state, read), transition) print;
+    Pp.current_tape fmt current_tape index
+      ((current_state, read), transition)
+      print;
     safe_set tape index write;
-    execution ~print tables tape (index + move_direction direction) next_state
+    execution fmt ~print tables tape
+      (index + move_direction direction)
+      next_state
 
 (** [interpreter machine input] function sets up the execution of the turing
     machine [machine] on the [input]. *)
-let interpreter machine input =
+let interpreter fmt (machine, input) =
   let alphabet, blank, initial, tables = machine in
   let initial_length = check_input input blank in
   let tape1 = convert input blank (initial_length * 2) in
   let read = safe_read tape1 0 in
   if not (List.mem read alphabet) then
-    is_blocked tape1 initial read 0 ~print:true
+    is_blocked fmt tape1 initial read 0 ~print:true
   else (
     blank_char := blank;
-    execution ~print:false tables tape1 0 initial;
+    execution fmt ~print:false tables tape1 0 initial;
     tape_size := CCVector.size tape1;
     let tape2 = convert input blank !tape_size in
-    execution ~print:true tables tape2 0 initial
+    execution fmt ~print:true tables tape2 0 initial
   )

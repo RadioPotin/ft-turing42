@@ -33,5 +33,5 @@
   (bisect_ppx
    (and
     :with-test
-    (>= "2.6")
+    (>= 2.6)
     :dev))))

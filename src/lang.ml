@@ -146,6 +146,7 @@ let convert_json jsonfile =
     Utils.error (Format.sprintf "Impossible to read file")
 
 let get_name json jsonfile =
+  let jsonfile = Filename.basename jsonfile in
   get_value_and_check "\"name\" field and filename are different:"
     (to_string "name" json)
     (String.equal (Filename.chop_extension jsonfile))

@@ -74,18 +74,18 @@ let pp_tape fmt (tape, index) =
         Format.fprintf fmt "%c" s )
     tape
 
-let blocked_tape current_head state read print final_or_blocked =
+let blocked_tape fmt current_head state read print final_or_blocked =
   if print then
-    Format.fprintf Format.std_formatter {|[%a] (%s, %s) -> %s@.|} pp_tape
-      current_head state read final_or_blocked
+    Format.fprintf fmt {|[%a] (%s, %s) -> %s@.|} pp_tape current_head state read
+      final_or_blocked
   else
-    Format.ifprintf Format.std_formatter {|[%a] (%s, %s) -> %s@.|} pp_tape
-      current_head state read final_or_blocked
+    Format.ifprintf fmt {|[%a] (%s, %s) -> %s@.|} pp_tape current_head state
+      read final_or_blocked
 
-let current_tape tape index transition print =
+let current_tape fmt tape index transition print =
   if print then
-    Format.fprintf Format.std_formatter {|[%a] %a@.|} pp_tape (tape, index)
-      pp_transition transition
+    Format.fprintf fmt {|[%a] %a@.|} pp_tape (tape, index) pp_transition
+      transition
   else
-    Format.ifprintf Format.std_formatter {|[%a] %a@.|} pp_tape (tape, index)
-      pp_transition transition
+    Format.ifprintf fmt {|[%a] %a@.|} pp_tape (tape, index) pp_transition
+      transition
