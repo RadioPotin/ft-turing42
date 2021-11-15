@@ -1,5 +1,5 @@
 (test
  (name test_ft_turing)
  (deps
-   (source_tree test_machines))
-  (libraries ft_turing))
+  (source_tree test_machines))
+ (libraries ft_turing))

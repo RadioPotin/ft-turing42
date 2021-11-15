@@ -45,8 +45,8 @@ let () =
   let fmt = Format.std_formatter in
   Format.fprintf fmt "LAUNCHING TESTS *********************@.";
 
-  pp_test_nb fmt "checking machine description";
   let machine = get_machine fmt "test_machines/test_unary_sub_VALID.json" in
+  pp_test_nb fmt "checking machine description";
   compare_description machine unary_sub_definition;
   List.iter
     (fun (input, expected) ->
@@ -63,6 +63,7 @@ let () =
     unary_sub_invalid_input;
 
   let machine = get_machine fmt "test_machines/unary_add.json" in
+  pp_test_nb fmt "checking machine description";
   compare_description machine unary_add_definition;
   List.iter
     (fun (input, expected) ->

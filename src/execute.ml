@@ -2,7 +2,8 @@
     if all is good *)
 let check_input input blank =
   if String.contains input (String.get blank 0) then
-    Utils.wrap_error Utils.error "Invalid input, blank character cannot be in input";
+    Utils.wrap_error Utils.error
+      "Invalid input, blank character cannot be in input";
   match String.length input with
   | 0 -> Utils.wrap_error Utils.error "Invalid input, length = 0"
   | n -> n
