@@ -153,8 +153,8 @@ let wrap_error f =
     asserts a given transition is coherent and complies with specifications of
     turing machine definition. *)
 let assert_transition_ok transitbl t state_key read_key alphabet states =
-  <span data-count="17">l</span>et to_state, write, _ = t in
-  match (List.me<span data-count="17">m</span> write alphabet, List.me<span data-count="17">m</span> to_state states) with
+  <span data-count="37">l</span>et to_state, write, _ = t in
+  match (List.me<span data-count="37">m</span> write alphabet, List.me<span data-count="37">m</span> to_state states) with
   | <span data-count="0">f</span>alse, false -&gt;
     wrap_error error
       (Format.sprint<span data-count="0">f</span>
@@ -168,7 +168,7 @@ let assert_transition_ok transitbl t state_key read_key alphabet states =
     wrap_error error
       (Format.sprint<span data-count="0">f</span> {|"to_state" value %s is undefined in transition %s|}
          to_state state_key )
-  | <span data-count="17">t</span>rue, true -&gt; Hashtbl.add transitbl (state_key, read_key) t
+  | <span data-count="37">t</span>rue, true -&gt; Hashtbl.add transitbl (state_key, read_key) t
 </code></pre>
       </div>
     </div>

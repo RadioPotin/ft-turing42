@@ -14,14 +14,12 @@
           <span class="dirname">src/</span>execute.ml
         </a>
       </h1>
-      <h2>87.30%</h2>
+      <h2>90.48%</h2>
     </div>
     <div id="navbar">
       <span class="unvisited" style="top:4.27%"></span>
       <span class="unvisited" style="top:6.84%"></span>
       <span class="unvisited" style="top:17.95%"></span>
-      <span class="some-visited" style="bottom:44.44%"></span>
-      <span class="unvisited" style="bottom:42.74%"></span>
       <span class="unvisited" style="bottom:35.90%"></span>
       <span class="unvisited" style="bottom:30.77%"></span>
     </div>
@@ -92,9 +90,9 @@
 <a id="L62"></a><span class="visited"> </span>
 <a id="L63"></a><span class="visited"> </span>
 <a id="L64"></a><span class="visited"> </span>
-<a id="L65"></a><span class="some-visited"> </span>
+<a id="L65"></a><span class="visited"> </span>
 <a id="L66"></a><span > </span>
-<a id="L67"></a><span class="unvisited"> </span>
+<a id="L67"></a><span class="visited"> </span>
 <a id="L68"></a><span > </span>
 <a id="L69"></a><span class="visited"> </span>
 <a id="L70"></a><span > </span>
@@ -270,46 +268,46 @@
 <pre><code class="ocaml">(** [check_input input blank] does sanity checks on input and returns its length
     if all is good *)
 let check_input input blank =
-  <span data-count="7">i</span>f String.contains input (String.ge<span data-count="7">t</span> blank 0) then
+  <span data-count="18">i</span>f String.contains input (String.ge<span data-count="18">t</span> blank 0) then
     <span data-count="0">U</span>tils.wrap_erro<span data-count="0">r</span> Utils.error
       "Invalid input, blank character cannot be in input";
-  <span data-count="7">m</span>atch String.length input with
+  <span data-count="18">m</span>atch String.length input with
   | <span data-count="0">0</span> -&gt; Utils.wrap_error Utils.error "Invalid input, length = 0"
-  | <span data-count="7">n</span> -&gt; n
+  | <span data-count="18">n</span> -&gt; n
 
 (** [convert input blank length] convert a string input into a resizable vector *)
 let convert input blank length =
-  <span data-count="13">l</span>et tape = CCVector.make length blank in
-  <span data-count="13">S</span>tring.iteri (fun i cc -&gt; <span data-count="41">C</span>CVector.set tape i (String.mak<span data-count="41">e</span> 1 cc)) input;
-  <span data-count="13">t</span>ape
+  <span data-count="34">l</span>et tape = CCVector.make length blank in
+  <span data-count="34">S</span>tring.iteri (fun i cc -&gt; <span data-count="86">C</span>CVector.set tape i (String.mak<span data-count="86">e</span> 1 cc)) input;
+  <span data-count="34">t</span>ape
 
 (** [is_final tbl state] simple boolean to check if a state is contained in the
     Hashtbl of all known states *)
 let is_final tbl state =
-  <span data-count="12">m</span>atch Hashtbl.find_opt tbl state with
+  <span data-count="32">m</span>atch Hashtbl.find_opt tbl state with
   | <span data-count="0">N</span>one -&gt; false
-  | <span data-count="12">S</span>ome answer -&gt; (
+  | <span data-count="32">S</span>ome answer -&gt; (
     match answer with
-    | <span data-count="2">_</span>, false -&gt; false
-    | <span data-count="10">_</span>, true -&gt; true )
+    | <span data-count="4">_</span>, false -&gt; false
+    | <span data-count="28">_</span>, true -&gt; true )
 
 (** [is_blocked tape state read index state_tbl print] *)
 let is_blocked fmt tape state read index ~print =
-  <span data-count="3">l</span>et is_blocked =
+  <span data-count="6">l</span>et is_blocked =
     Pp.blocked_tape fmt
-      (CCVector.to_strin<span data-count="3">g</span> ~sep:"" Fun.id tape, index)
+      (CCVector.to_strin<span data-count="6">g</span> ~sep:"" Fun.id tape, index)
       state read print
   in
-  <span data-count="3">i</span>s_blocked
-    (Format.sprint<span data-count="3">f</span> "BLOCKED@.transition (%s, %s) is undefined" state read)
+  <span data-count="6">i</span>s_blocked
+    (Format.sprint<span data-count="6">f</span> "BLOCKED@.transition (%s, %s) is undefined" state read)
 
 (** [terminate current_state read print tape index state_tbl] is called when
     machine is estimated to be in a final or blocked state *)
 let terminate fmt current_state read print tape index state_tbl =
-  <span data-count="12">i</span>f is_final state_tbl current_state then
-    <span data-count="10">(</span>)
+  <span data-count="32">i</span>f is_final state_tbl current_state then
+    <span data-count="28">(</span>)
   else
-    <span data-count="2">i</span>s_blocked fmt tape current_state read index ~print
+    <span data-count="4">i</span>s_blocked fmt tape current_state read index ~print
 
 (** [move_direction direction] converts a given action field direction to an
     incrementation or decrementation of the index in the recursive
@@ -317,35 +315,35 @@ let terminate fmt current_state read print tape index state_tbl =
 let move_direction =
   let open Lang in
   function
-  | <span data-count="50">R</span>ight -&gt; 1
-  | <span data-count="32">L</span>eft -&gt; -1
+  | <span data-count="150">R</span>ight -&gt; 1
+  | <span data-count="56">L</span>eft -&gt; -1
 
 let tape_size = ref 0
 
 let blank_char = ref ""
 
 let index_checker index tape =
-  <span data-count="94">l</span>et size = CCVector.size tape in
-  <span data-count="94">i</span>f index &lt; 0 then <span data-count="2">(</span>
+  <span data-count="238">l</span>et size = CCVector.size tape in
+  <span data-count="238">i</span>f index &lt; 0 then <span data-count="2">(</span>
     CCVector.rev_in_place tape;
     <span data-count="2">C</span>CVector.push tape !blank_char;
     <span data-count="2">C</span>CVector.rev_in_place tape;
     <span data-count="2">0</span>
-  ) else <span data-count="92">i</span>f index &gt;= size then <span data-count="0">(</span>
+  ) else <span data-count="236">i</span>f index &gt;= size then <span data-count="8">(</span>
     CCVector.push tape !blank_char;
-    <span data-count="0">i</span>ndex
+    <span data-count="8">i</span>ndex
   ) else
-    <span data-count="92">i</span>ndex
+    <span data-count="228">i</span>ndex
 
 let safe_set tape index write =
-  <span data-count="82">i</span>f index &lt; CCVector.siz<span data-count="82">e</span> tape then
-    <span data-count="82">C</span>CVector.set tape index write
+  <span data-count="206">i</span>f index &lt; CCVector.siz<span data-count="206">e</span> tape then
+    <span data-count="206">C</span>CVector.set tape index write
   else
     <span data-count="0">a</span>ssert false
 
 let safe_read tape index =
-  <span data-count="101">i</span>f index &lt; CCVector.siz<span data-count="101">e</span> tape then
-    <span data-count="101">C</span>CVector.get tape index
+  <span data-count="256">i</span>f index &lt; CCVector.siz<span data-count="256">e</span> tape then
+    <span data-count="256">C</span>CVector.get tape index
   else
     <span data-count="0">a</span>ssert false
 
@@ -354,35 +352,35 @@ let safe_read tape index =
     transitions found in transitions and states [tables] *)
 let rec execution fmt ~print ((state_tbl, transitions_tbl) as tables) tape index
     current_state =
-  <span data-count="94">l</span>et index = index_checker index tape in
-  <span data-count="94">l</span>et read = safe_read tape index in
-  <span data-count="94">m</span>atch Hashtbl.find_opt transitions_tbl (current_state, read) with
-  | <span data-count="12">N</span>one -&gt; terminate fmt current_state read print tape index state_tbl
-  | <span data-count="82">S</span>ome ((next_state, write, direction) as transition) -&gt;
+  <span data-count="238">l</span>et index = index_checker index tape in
+  <span data-count="238">l</span>et read = safe_read tape index in
+  <span data-count="238">m</span>atch Hashtbl.find_opt transitions_tbl (current_state, read) with
+  | <span data-count="32">N</span>one -&gt; terminate fmt current_state read print tape index state_tbl
+  | <span data-count="206">S</span>ome ((next_state, write, direction) as transition) -&gt;
     let current_tape = CCVector.to_string ~sep:"" Fun.id tape in
-    <span data-count="82">P</span>p.current_tape fmt current_tape index
+    <span data-count="206">P</span>p.current_tape fmt current_tape index
       ((current_state, read), transition)
       print;
-    <span data-count="82">s</span>afe_set tape index write;
-    <span data-count="82">e</span>xecution fmt ~print tables tape
-      (index + move_directio<span data-count="82">n</span> direction)
+    <span data-count="206">s</span>afe_set tape index write;
+    <span data-count="206">e</span>xecution fmt ~print tables tape
+      (index + move_directio<span data-count="206">n</span> direction)
       next_state
 
 (** [interpreter machine input] function sets up the execution of the turing
     machine [machine] on the [input]. *)
 let interpreter fmt (machine, input) =
-  <span data-count="7">l</span>et alphabet, blank, initial, tables = machine in
+  <span data-count="18">l</span>et alphabet, blank, initial, tables = machine in
   let initial_length = check_input input blank in
-  <span data-count="7">l</span>et tape1 = convert input blank (initial_length * 2) in
-  <span data-count="7">l</span>et read = safe_read tape1 0 in
-  <span data-count="7">i</span>f not (List.me<span data-count="7">m</span> read alphabet) then
-    <span data-count="1">i</span>s_blocked fmt tape1 initial read 0 ~print:true
-  else <span data-count="6">(</span>
+  <span data-count="18">l</span>et tape1 = convert input blank (initial_length * 2) in
+  <span data-count="18">l</span>et read = safe_read tape1 0 in
+  <span data-count="18">i</span>f not (List.me<span data-count="18">m</span> read alphabet) then
+    <span data-count="2">i</span>s_blocked fmt tape1 initial read 0 ~print:true
+  else <span data-count="16">(</span>
     blank_char := blank;
     execution fmt ~print:false tables tape1 0 initial;
-    <span data-count="6">t</span>ape_size := CCVector.siz<span data-count="6">e</span> tape1;
+    <span data-count="16">t</span>ape_size := CCVector.siz<span data-count="16">e</span> tape1;
     let tape2 = convert input blank !tape_size in
-    <span data-count="6">e</span>xecution fmt ~print:true tables tape2 0 initial
+    <span data-count="16">e</span>xecution fmt ~print:true tables tape2 0 initial
   )
 </code></pre>
       </div>
