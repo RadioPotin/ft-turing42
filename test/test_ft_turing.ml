@@ -17,7 +17,7 @@ let test_number =
     !count
 
 let pp_test_nb fmt com =
-  Format.fprintf fmt "Test %d: %a" (test_number ()) comment com
+  Format.fprintf fmt "Test %02d: %a" (test_number ()) comment com
 
 let get_machine fmt machinefile =
   let machine =
@@ -41,6 +41,14 @@ let handle_test
   try assert (String.equal execution expected) with
   | Assert_failure _ -> trace expected execution
 
+let run_tests fmt machine kind input_list =
+  List.iter
+    (fun (input, expected) ->
+      pp_test_nb fmt (Format.sprintf {|%s "%s"|} kind input);
+      handle_test machine input expected;
+      Format.print_flush () )
+    input_list
+
 let () =
   let fmt = Format.std_formatter in
   Format.fprintf fmt "LAUNCHING TESTS *********************@.";
@@ -48,33 +56,17 @@ let () =
   let machine = get_machine fmt "test_machines/test_unary_sub_VALID.json" in
   pp_test_nb fmt "checking machine description";
   compare_description machine unary_sub_definition;
-  List.iter
-    (fun (input, expected) ->
-      pp_test_nb fmt (Format.sprintf {|VALID "%s"|} input);
-      handle_test machine input expected;
-      Format.print_flush () )
-    unary_sub_valid_input;
-
-  List.iter
-    (fun (input, expected) ->
-      pp_test_nb fmt (Format.sprintf {|INVALID "%s"|} input);
-      handle_test machine input expected;
-      Format.print_flush () )
-    unary_sub_invalid_input;
+  run_tests fmt machine "VALID" unary_sub_valid_input;
+  run_tests fmt machine "INVALID" unary_sub_invalid_input;
 
   let machine = get_machine fmt "test_machines/unary_add.json" in
   pp_test_nb fmt "checking machine description";
   compare_description machine unary_add_definition;
-  List.iter
-    (fun (input, expected) ->
-      pp_test_nb fmt (Format.sprintf {|VALID "%s"|} input);
-      handle_test machine input expected;
-      Format.print_flush () )
-    unary_add_valid_input;
+  run_tests fmt machine "VALID" unary_add_valid_input;
+  run_tests fmt machine "INVALID" unary_add_invalid_input;
 
-  List.iter
-    (fun (input, expected) ->
-      pp_test_nb fmt (Format.sprintf {|INVALID "%s"|} input);
-      handle_test machine input expected;
-      Format.print_flush () )
-    unary_add_invalid_input
+  let machine = get_machine fmt "test_machines/02n.json" in
+  pp_test_nb fmt "checking machine description";
+  compare_description machine zero_two_n;
+  run_tests fmt machine "VALID" zero_two_n_valid_input;
+  run_tests fmt machine "INVALID" zero_two_n_invalid_input

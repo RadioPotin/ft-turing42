@@ -1,0 +1,165 @@
+{
+  "name": "02n",
+  "alphabet": [
+    "0",
+    ".",
+		"x",
+		"y",
+		"n"
+  ],
+  "blank": ".",
+  "states": [
+    "q1",
+    "q2",
+    "q3",
+    "q4",
+    "q5",
+		"TRUE",
+		"FALSE",
+		"END",
+		"HALT"
+  ],
+  "initial": "q1",
+  "finals": [
+    "HALT"
+  ],
+  "transitions": {
+    "q1": [
+      {
+        "read": ".",
+        "to_state": "FALSE",
+        "write": ".",
+        "action": "RIGHT"
+      },
+			{
+        "read": "x",
+        "to_state": "FALSE",
+        "write": "x",
+        "action": "RIGHT"
+      },
+			{
+        "read": "0",
+        "to_state": "q2",
+        "write": ".",
+        "action": "RIGHT"
+      }
+		],
+    "q2": [
+      {
+        "read": "x",
+        "to_state": "q2",
+        "write": "x",
+        "action": "RIGHT"
+      },
+			{
+        "read": ".",
+        "to_state": "TRUE",
+        "write": ".",
+        "action": "RIGHT"
+      },
+			{
+        "read": "0",
+        "to_state": "q3",
+        "write": "x",
+        "action": "RIGHT"
+      }
+		],
+    "q3": [
+      {
+        "read": "x",
+        "to_state": "q3",
+        "write": "x",
+        "action": "RIGHT"
+      },
+			{
+        "read": "0",
+        "to_state": "q4",
+        "write": "0",
+        "action": "RIGHT"
+      },
+			{
+        "read": ".",
+        "to_state": "q5",
+        "write": ".",
+        "action": "LEFT"
+      }
+		],
+    "q4": [
+      {
+        "read": "x",
+        "to_state": "q4",
+        "write": "x",
+        "action": "RIGHT"
+      },
+			{
+        "read": ".",
+        "to_state": "FALSE",
+        "write": ".",
+        "action": "RIGHT"
+      },
+			{
+        "read": "0",
+        "to_state": "q3",
+        "write": "x",
+        "action": "RIGHT"
+      }
+		],
+    "q5": [
+      {
+        "read": ".",
+        "to_state": "q2",
+        "write": ".",
+        "action": "RIGHT"
+      },
+			{
+        "read": "0",
+        "to_state": "q5",
+        "write": "0",
+        "action": "LEFT"
+      },
+			{
+        "read": "x",
+        "to_state": "q5",
+        "write": "x",
+        "action": "LEFT"
+      }
+
+		],
+		"TRUE":[
+			{
+        "read": "x",
+        "to_state": "TRUE",
+        "write": "x",
+        "action": "RIGHT"
+      },
+			{
+        "read": ".",
+        "to_state": "END",
+        "write": "y",
+        "action": "RIGHT"
+      }
+		],
+		"FALSE":[
+			{
+        "read": "x",
+        "to_state": "FALSE",
+        "write": "x",
+        "action": "RIGHT"
+      },
+			{
+        "read": ".",
+        "to_state": "END",
+        "write": "n",
+        "action": "RIGHT"
+      }
+		],
+		"END" : [
+			{
+        "read": ".",
+        "to_state": "HALT",
+        "write": ".",
+        "action": "RIGHT"
+			}
+		]
+	}
+}
