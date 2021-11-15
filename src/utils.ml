@@ -17,7 +17,7 @@ let err_invalid_type std t field =
 (** [wrap_error f]*)
 let wrap_error f =
   try f with
-  | Error -> Format.eprintf "EXITING@.";exit 1
+  | Error -> Format.eprintf "EXITING@."; exit 1
 
 (** [assert_transition_ok transitbl t state_key read_key alphabet states]
     asserts a given transition is coherent and complies with specifications of
