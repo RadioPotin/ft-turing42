@@ -43,7 +43,7 @@ let unary_sub_invalid_input =
 
 let trace expected got =
   Format.eprintf
-    "********************* EXPECTED\t\t@.@.%s@.********************* GOT     \
+    "@.********************* EXPECTED\t\t@.%s@.@.********************* GOT     \
      \t\t.@.%s@."
     expected got;
   exit 1
@@ -62,7 +62,7 @@ let pp_test_nb fmt com =
 let get_machine fmt machinefile =
   let machine =
     match Lang.to_machine machinefile with
-    | exception Utils.Error -> exit 1
+    | exception Utils.Error -> trace "a valid filename" machinefile
     | machine -> machine
   in
   Format.fprintf fmt "@.FILE: %s@.@." (Filename.basename machinefile);

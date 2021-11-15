@@ -4,201 +4,218 @@
     "0",
     "1",
     ".",
-    "=",
     "y",
     "n"
   ],
   "blank": ".",
   "states": [
-    "scanpal_q0",
-    "find1_q1",
-    "find0_q2",
-    "findend1_q3",
-    "findend0_q4",
-    "isone_q5",
-    "iszero_q6",
-    "reset_detection_q7",
-    "to_end_q8",
+    "q0",
+    "q1",
+    "q2",
+    "q3",
+    "q4",
+    "q5",
+    "q6",
+    "q7",
+    "TRUE",
+    "FALSE",
+    "END",
     "HALT"
   ],
-  "initial": "scanpal_q0",
+  "initial": "q0",
   "finals": [
     "HALT"
   ],
   "transitions": {
-    "scanpal_q0": [
+    "q0": [
       {
         "read": "0",
-        "to_state": "find0_q2",
+        "to_state": "q1",
+        "write": ".",
+        "action": "RIGHT"
+      },
+      {
+        "read": ".",
+        "to_state": "TRUE",
         "write": ".",
         "action": "RIGHT"
       },
       {
         "read": "1",
-        "to_state": "find1_q1",
+        "to_state": "q2",
         "write": ".",
-        "action": "RIGHT"
-      },
-      {
-        "read": "=",
-        "to_state": "to_end_q8",
-        "write": "y",
         "action": "RIGHT"
       }
     ],
-    "find1_q1": [
+    "q1": [
+      {
+        "read": "0",
+        "to_state": "q3",
+        "write": "0",
+        "action": "RIGHT"
+      },
       {
         "read": "1",
-        "to_state": "findend1_q3",
+        "to_state": "q3",
+        "write": "1",
+        "action": "RIGHT"
+      },
+      {
+        "read": ".",
+        "to_state": "TRUE",
+        "write": ".",
+        "action": "RIGHT"
+      }
+    ],
+    "q2": [
+      {
+        "read": "0",
+        "to_state": "q4",
+        "write": "0",
+        "action": "RIGHT"
+      },
+      {
+        "read": "1",
+        "to_state": "q4",
+        "write": "1",
+        "action": "RIGHT"
+      },
+      {
+        "read": ".",
+        "to_state": "TRUE",
+        "write": ".",
+        "action": "RIGHT"
+      }
+    ],
+    "q3": [
+      {
+        "read": "0",
+        "to_state": "q3",
+        "write": "0",
+        "action": "RIGHT"
+      },
+      {
+        "read": "1",
+        "to_state": "q3",
+        "write": "1",
+        "action": "RIGHT"
+      },
+      {
+        "read": ".",
+        "to_state": "q5",
+        "write": ".",
+        "action": "LEFT"
+      }
+    ],
+    "q4":[
+      {
+        "read": "1",
+        "to_state": "q4",
         "write": "1",
         "action": "RIGHT"
       },
       {
         "read": "0",
-        "to_state": "findend1_q3",
+        "to_state": "q4",
         "write": "0",
         "action": "RIGHT"
       },
       {
         "read": ".",
-        "to_state": "isone_q5",
-        "write": ".",
-        "action": "LEFT"
-      },
-      {
-        "read": "=",
-        "to_state": "to_end_q8",
-        "write": "y",
-        "action": "RIGHT"
-      }
-    ],
-    "find0_q2": [
-      {
-        "read": "1",
-        "to_state": "findend0_q4",
-        "write": "1",
-        "action": "RIGHT"
-      },
-      {
-        "read": "0",
-        "to_state": "findend0_q4",
-        "write": "0",
-        "action": "RIGHT"
-      },
-      {
-        "read": ".",
-        "to_state": "iszero_q6",
-        "write": ".",
-        "action": "LEFT"
-      },
-      {
-        "read": "=",
-        "to_state": "to_end_q8",
-        "write": "y",
-        "action": "RIGHT"
-      }
-    ],
-    "findend1_q3": [
-      {
-        "read": "0",
-        "to_state": "findend1_q3",
-        "write": "0",
-        "action": "RIGHT"
-      },
-      {
-        "read": "1",
-        "to_state": "findend1_q3",
-        "write": "1",
-        "action": "RIGHT"
-      },
-      {
-        "read": "=",
-        "to_state": "isone_q5",
+        "to_state": "q6",
         "write": ".",
         "action": "LEFT"
       }
     ],
-    "findend0_q4": [
-      {
-        "read": "0",
-        "to_state": "findend0_q4",
-        "write": "0",
-        "action": "RIGHT"
-      },
+    "q5": [
       {
         "read": "1",
-        "to_state": "findend0_q4",
-        "write": "1",
-        "action": "RIGHT"
-      },
-      {
-        "read": "=",
-        "to_state": "iszero_q6",
-        "write": ".",
-        "action": "LEFT"
-      }
-    ],
-    "isone_q5": [
-      {
-        "read": "1",
-        "to_state": "reset_detection_q7",
-        "write": "=",
-        "action": "LEFT"
-      },
-      {
-        "read": "0",
-        "to_state": "to_end_q8",
+        "to_state": "FALSE",
         "write": "n",
-        "action": "RIGHT"
-      },
-      {
-        "read": ".",
-        "to_state": "to_end_q8",
-        "write": "y",
-        "action": "RIGHT"
-      }
-    ],
-    "iszero_q6": [
-      {
-        "read": "0",
-        "to_state": "reset_detection_q7",
-        "write": "=",
-        "action": "LEFT"
-      },
-      {
-        "read": "1",
-        "to_state": "to_end_q8",
-        "write": "n",
-        "action": "RIGHT"
-      },
-      {
-        "read": ".",
-        "to_state": "to_end_q8",
-        "write": "y",
-        "action": "RIGHT"
-      }
-    ],
-    "reset_detection_q7": [
-      {
-        "read": "1",
-        "to_state": "reset_detection_q7",
-        "write": "1",
         "action": "LEFT"
       },
       {
         "read": "0",
-        "to_state": "reset_detection_q7",
+        "to_state": "q7",
+        "write": ".",
+        "action": "LEFT"
+      }
+    ],
+    "q6": [
+      {
+        "read": "1",
+        "to_state": "q7",
+        "write": ".",
+        "action": "LEFT"
+      },
+      {
+        "read": "0",
+        "to_state": "FALSE",
+        "write": "0",
+        "action": "RIGHT"
+      }
+    ],
+    "q7": [
+      {
+        "read": "0",
+        "to_state": "q7",
         "write": "0",
         "action": "LEFT"
       },
       {
+        "read": "1",
+        "to_state": "q7",
+        "write": "1",
+        "action": "LEFT"
+      },
+      {
         "read": ".",
-        "to_state": "scanpal_q0",
+        "to_state": "q0",
         "write": ".",
         "action": "RIGHT"
       }
     ],
-    "to_end_q8": [
+    "FALSE": [
+      {
+        "read": ".",
+        "to_state": "END",
+        "write": "n",
+        "action": "LEFT"
+      },
+      {
+        "read": "1",
+        "to_state": "FALSE",
+        "write": "1",
+        "action": "RIGHT"
+      },
+      {
+        "read": "0",
+        "to_state": "FALSE",
+        "write": "0",
+        "action": "RIGHT"
+      }
+    ],
+    "TRUE": [
+      {
+        "read": ".",
+        "to_state": "END",
+        "write": "y",
+        "action": "LEFT"
+      },
+      {
+        "read": "1",
+        "to_state": "FALSE",
+        "write": "1",
+        "action": "RIGHT"
+      },
+      {
+        "read": "0",
+        "to_state": "FALSE",
+        "write": "0",
+        "action": "RIGHT"
+      }
+    ],
+    "END": [
       {
         "read": ".",
         "to_state": "HALT",
@@ -206,15 +223,15 @@
         "action": "RIGHT"
       },
       {
-        "read": "y",
+        "read": "1",
         "to_state": "HALT",
-        "write": "y",
+        "write": "1",
         "action": "RIGHT"
       },
       {
-        "read": "n",
+        "read": "0",
         "to_state": "HALT",
-        "write": "n",
+        "write": "0",
         "action": "RIGHT"
       }
     ]
