@@ -3,9 +3,7 @@
   "alphabet": [
     "0",
     "1",
-    ".",
-    "y",
-    "n"
+    "."
   ],
   "blank": ".",
   "states": [
@@ -180,12 +178,18 @@
         "read": ".",
         "to_state": "END",
         "write": "n",
-        "action": "LEFT"
+        "action": "RIGHT"
       },
       {
         "read": "1",
         "to_state": "FALSE",
         "write": "1",
+        "action": "RIGHT"
+      },
+      {
+        "read": "n",
+        "to_state": "END",
+        "write": "n",
         "action": "RIGHT"
       },
       {
@@ -200,12 +204,18 @@
         "read": ".",
         "to_state": "END",
         "write": "y",
-        "action": "LEFT"
+        "action": "RIGHT"
       },
       {
         "read": "1",
         "to_state": "FALSE",
         "write": "1",
+        "action": "RIGHT"
+      },
+      {
+        "read": "y",
+        "to_state": "END",
+        "write": "y",
         "action": "RIGHT"
       },
       {

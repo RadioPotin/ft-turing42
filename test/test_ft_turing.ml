@@ -67,6 +67,18 @@ let () =
 
   let machine = get_machine fmt "test_machines/02n.json" in
   pp_test_nb fmt "checking machine description";
-  compare_description machine zero_two_n;
+  compare_description machine zero_two_n_definition;
   run_tests fmt machine "VALID" zero_two_n_valid_input;
-  run_tests fmt machine "INVALID" zero_two_n_invalid_input
+  run_tests fmt machine "INVALID" zero_two_n_invalid_input;
+
+  let machine = get_machine fmt "test_machines/palindrome.json" in
+  pp_test_nb fmt "checking machine description";
+  compare_description machine palindrome_definition;
+  run_tests fmt machine "VALID" palindrome_valid_input;
+  run_tests fmt machine "INVALID" palindrome_invalid_input;
+
+  let machine = get_machine fmt "test_machines/0n1n.json" in
+  pp_test_nb fmt "checking machine description";
+  compare_description machine zero_n_one_n_definition;
+  run_tests fmt machine "VALID" zero_n_one_n_valid_input;
+  run_tests fmt machine "INVALID" zero_n_one_n_invalid_input

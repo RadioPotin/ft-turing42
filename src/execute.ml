@@ -1,9 +1,18 @@
 (** [check_input input blank] does sanity checks on input and returns its length
     if all is good *)
-let check_input input blank =
+let check_input input alphabet blank =
   if String.contains input (String.get blank 0) then
     Utils.wrap_error Utils.error
-      "Invalid input, blank character cannot be in input";
+      "Invalid input, blank character cannot be in input"
+  else
+    String.iter
+      (fun c ->
+        if not (List.exists (fun alpha -> String.get alpha 0 = c) alphabet) then
+          Utils.wrap_error Utils.error
+            "Invalid input, unknown character cannot be in input"
+        else
+          () )
+      input;
   match String.length input with
   | 0 -> Utils.wrap_error Utils.error "Invalid input, length = 0"
   | n -> n
@@ -103,7 +112,7 @@ let rec execution fmt ~print ((state_tbl, transitions_tbl) as tables) tape index
     machine [machine] on the [input]. *)
 let interpreter fmt (machine, input) =
   let alphabet, blank, initial, tables = machine in
-  let initial_length = check_input input blank in
+  let initial_length = check_input input alphabet blank in
   let tape1 = convert input blank (initial_length * 2) in
   let read = safe_read tape1 0 in
   if not (List.mem read alphabet) then

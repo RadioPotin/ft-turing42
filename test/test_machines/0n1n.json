@@ -3,11 +3,7 @@
 	"alphabet": [
 		"0",
 		"1",
-		".",
-    "a",
-    "b",
-    "y",
-    "n"
+		"."
 	],
 	"blank": ".",
 	"states": [
@@ -34,17 +30,18 @@
 				"action": "RIGHT"
 			},
 			{
+				"read": "b",
+				"to_state": "q3",
+				"write": "b",
+				"action": "RIGHT"
+			},
+			{
 				"read": "1",
 				"to_state": "FALSE",
 				"write": "1",
 				"action": "RIGHT"
-			},
-			{
-				"read": "b",
-				"to_state": "TRUE",
-				"write": "b",
-				"action": "RIGHT"
 			}
+
 		],
 		"q1": [
 			{
@@ -53,50 +50,37 @@
 				"write": "0",
 				"action": "RIGHT"
 			},
+      {
+				"read": "b",
+				"to_state": "q1",
+				"write": "b",
+				"action": "RIGHT"
+      },
 			{
 				"read": "1",
-				"to_state": "q1",
-				"write": "1",
-				"action": "RIGHT"
-			},
-      {
-				"read": ".",
 				"to_state": "q2",
+				"write": "b",
+				"action": "LEFT"
+			},
+			{
+				"read": ".",
+				"to_state": "FALSE",
 				"write": ".",
 				"action": "LEFT"
-      },
+			}
+
+		],
+    "q2": [
       {
 				"read": "b",
 				"to_state": "q2",
 				"write": "b",
 				"action": "LEFT"
-      }
-		],
-    "q2": [
-      {
-				"read": "1",
-				"to_state": "q3",
-				"write": "b",
-				"action": "LEFT"
       },
-      {
-				"read": "a",
-				"to_state": "FALSE",
-				"write": "a",
-				"action": "LEFT"
-      }
-    ],
-    "q3": [
       {
 				"read": "0",
-				"to_state": "q3",
+				"to_state": "q2",
 				"write": "0",
-				"action": "LEFT"
-      },
-      {
-				"read": "1",
-				"to_state": "q3",
-				"write": "1",
 				"action": "LEFT"
       },
       {
@@ -105,6 +89,32 @@
 				"write": "a",
 				"action": "RIGHT"
       }
+    ],
+    "q3": [
+      {
+				"read": ".",
+				"to_state": "TRUE",
+				"write": ".",
+				"action": "LEFT"
+      },
+			{
+				"read": "b",
+				"to_state": "q3",
+				"write": "b",
+				"action": "RIGHT"
+			},
+			{
+				"read": "1",
+				"to_state": "FALSE",
+				"write": "1",
+				"action": "LEFT"
+			},
+			{
+				"read": "0",
+				"to_state": "FALSE",
+				"write": "0",
+				"action": "LEFT"
+			}
     ],
 		"FALSE": [
 			{

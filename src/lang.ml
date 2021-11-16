@@ -78,28 +78,21 @@ let get_transitions = function
     [ (state:string * read:string) (to_state:string * write:read * action:direction) Hashtbl.t].
     This function also runs several kinds of sanity checks on the validity of
     transitions described in the json file *)
-let to_transition_table alphabet states (transitions : (string * Basic.t) list)
-    =
+let to_transition_table states (transitions : (string * Basic.t) list) =
   let transitbl = Hashtbl.create 512 in
   List.iter
     (fun (state_key, v) ->
       List.iter
         (fun (read_key, (t : transition)) ->
-          if not (List.mem read_key alphabet) then
+          let collision = Hashtbl.find_opt transitbl (state_key, read_key) in
+          match collision with
+          | None ->
+            Utils.assert_transition_ok transitbl t state_key read_key states
+          | Some _transitionstate ->
             Utils.wrap_error Utils.error
-              (Format.sprintf {|"read" value %s is undefined in %s|} read_key
-                 state_key )
-          else
-            let collision = Hashtbl.find_opt transitbl (state_key, read_key) in
-            match collision with
-            | None ->
-              Utils.assert_transition_ok transitbl t state_key read_key alphabet
-                states
-            | Some _transitionstate ->
-              Utils.wrap_error Utils.error
-                (Format.sprintf
-                   {|Duplicate transition. State transition (%s) is already indexed somewhere in "transitions"@.|}
-                   state_key ) )
+              (Format.sprintf
+                 {|Duplicate transition. State transition (%s) is already indexed somewhere in "transitions"@.|}
+                 state_key ) )
         (get_transitions v) )
     transitions;
   transitbl
@@ -107,9 +100,8 @@ let to_transition_table alphabet states (transitions : (string * Basic.t) list)
 (** [to_transitions_tbl alphabet states field json] converts the value contained
     in [field] in the json object to [(string * Yojson.Basic.t) list] and feeds
     to the function handling the conversion to a type [Hashtbl.t] *)
-let to_transitions_tbl alphabet states field = function
-  | `Assoc _l as t ->
-    to_assoc_knv_list field t |> to_transition_table alphabet states
+let to_transitions_tbl states field = function
+  | `Assoc _l as t -> to_assoc_knv_list field t |> to_transition_table states
   | `List _l as t -> Utils.wrap_error Utils.err_invalid_type true t field
   | t -> Utils.wrap_error Utils.err_invalid_type false t field
 
@@ -195,5 +187,5 @@ let to_machine jsonfile =
   (* Maybe check if a final state is defined twice *)
   let finals = get_final json states in
   let states_tbl = to_states_tbl initial finals states in
-  let transitions_tbl = to_transitions_tbl alphabet states "transitions" json in
+  let transitions_tbl = to_transitions_tbl states "transitions" json in
   (name, alphabet, blank, states_tbl, initial, finals, transitions_tbl)
