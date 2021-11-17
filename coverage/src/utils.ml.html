@@ -14,19 +14,11 @@
           <span class="dirname">src/</span>utils.ml
         </a>
       </h1>
-      <h2>23.08%</h2>
+      <h2>80.00%</h2>
     </div>
     <div id="navbar">
-      <span class="unvisited" style="top:17.65%"></span>
-      <span class="unvisited" style="top:20.59%"></span>
-      <span class="unvisited" style="top:35.29%"></span>
-      <span class="unvisited" style="top:38.24%"></span>
-      <span class="unvisited" style="top:44.12%"></span>
-      <span class="unvisited" style="bottom:44.12%"></span>
-      <span class="unvisited" style="bottom:41.18%"></span>
-      <span class="unvisited" style="bottom:35.29%"></span>
-      <span class="unvisited" style="bottom:11.76%"></span>
-      <span class="unvisited" style="bottom:8.82%"></span>
+      <span class="unvisited" style="bottom:14.81%"></span>
+      <span class="unvisited" style="bottom:11.11%"></span>
     </div>
     <div id="report">
       <div id="lines-layer">
@@ -36,35 +28,28 @@
 <a id="L3"></a><span > </span>
 <a id="L4"></a><span > </span>
 <a id="L5"></a><span > </span>
-<a id="L6"></a><span class="unvisited"> </span>
-<a id="L7"></a><span class="unvisited"> </span>
+<a id="L6"></a><span class="visited"> </span>
+<a id="L7"></a><span class="visited"> </span>
 <a id="L8"></a><span > </span>
 <a id="L9"></a><span > </span>
 <a id="L10"></a><span > </span>
 <a id="L11"></a><span > </span>
-<a id="L12"></a><span class="unvisited"> </span>
-<a id="L13"></a><span class="unvisited"> </span>
+<a id="L12"></a><span class="visited"> </span>
+<a id="L13"></a><span class="visited"> </span>
 <a id="L14"></a><span > </span>
-<a id="L15"></a><span class="unvisited"> </span>
+<a id="L15"></a><span class="visited"> </span>
 <a id="L16"></a><span > </span>
 <a id="L17"></a><span > </span>
 <a id="L18"></a><span > </span>
-<a id="L19"></a><span class="unvisited"> </span>
-<a id="L20"></a><span class="unvisited"> </span>
-<a id="L21"></a><span > </span>
-<a id="L22"></a><span class="unvisited"> </span>
-<a id="L23"></a><span > </span>
-<a id="L24"></a><span > </span>
+<a id="L19"></a><span > </span>
+<a id="L20"></a><span > </span>
+<a id="L21"></a><span class="visited"> </span>
+<a id="L22"></a><span class="visited"> </span>
+<a id="L23"></a><span class="unvisited"> </span>
+<a id="L24"></a><span class="unvisited"> </span>
 <a id="L25"></a><span > </span>
 <a id="L26"></a><span > </span>
-<a id="L27"></a><span > </span>
-<a id="L28"></a><span class="visited"> </span>
-<a id="L29"></a><span class="visited"> </span>
-<a id="L30"></a><span class="unvisited"> </span>
-<a id="L31"></a><span class="unvisited"> </span>
-<a id="L32"></a><span > </span>
-<a id="L33"></a><span > </span>
-<a id="L34"></a><span class="visited"> </span>
+<a id="L27"></a><span class="visited"> </span>
 </pre>
       </div>
       <div id="text-layer">
@@ -96,36 +81,22 @@
 <a href="#L25">25</a>
 <a href="#L26">26</a>
 <a href="#L27">27</a>
-<a href="#L28">28</a>
-<a href="#L29">29</a>
-<a href="#L30">30</a>
-<a href="#L31">31</a>
-<a href="#L32">32</a>
-<a href="#L33">33</a>
-<a href="#L34">34</a>
 </pre>
 <pre><code class="ocaml">exception Error
 
 (** [error msg] used for all matters of interruption of the program thoughout
     execution *)
 let error msg =
-  <span data-count="0">F</span>ormat.eprintf "error: %s@." msg;
-  <span data-count="0">r</span>aise Error
+  <span data-count="3">F</span>ormat.eprintf "error: %s@." msg;
+  <span data-count="3">r</span>aise Error
 
 (** [err_invalid_type std t field] is called whenever an error of typing occurs
     during parsing of json file *)
 let err_invalid_type std t field =
-  <span data-count="0">F</span>ormat.eprintf "error: Invalid type %s for field: \"%s\"@."
-    (Yojson.Basic.pretty_to_strin<span data-count="0">g</span> ~std t)
+  <span data-count="8">F</span>ormat.eprintf "error: Invalid type %s for field: \"%s\"@."
+    (Yojson.Basic.pretty_to_strin<span data-count="8">g</span> ~std t)
     field;
-  <span data-count="0">r</span>aise Error
-
-(** [wrap_error f]*)
-let wrap_error f =
-  <span data-count="0">t</span>ry f with
-  | <span data-count="0">E</span>rror -&gt;
-    Format.eprintf "EXITING@.";
-    <span data-count="0">e</span>xit 1
+  <span data-count="8">r</span>aise Error
 
 (** [assert_transition_ok transitbl t state_key read_key alphabet states]
     asserts a given transition is coherent and complies with specifications of
@@ -133,7 +104,7 @@ let wrap_error f =
 let assert_transition_ok transitbl t state_key read_key states =
   <span data-count="95">l</span>et to_state, _write, _ = t in
   if not (List.me<span data-count="95">m</span> to_state states) then
-    <span data-count="0">w</span>rap_error error
+    <span data-count="0">e</span>rror
       (Format.sprint<span data-count="0">f</span> {|"to_state" value %s is undefined in transition %s|}
          to_state state_key )
   else
