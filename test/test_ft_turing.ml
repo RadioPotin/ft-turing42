@@ -50,6 +50,10 @@ let run_tests fmt machine kind input_list =
     input_list
 
 let () =
+  if Sys.os_type = "Win32" || Sys.os_type = "Cygwin" then
+    ()
+  else
+
   let fmt = Format.std_formatter in
   Format.fprintf fmt "LAUNCHING TESTS *********************@.";
 
