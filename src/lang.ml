@@ -20,8 +20,7 @@ let from_direction = function
 let to_direction = function
   | "RIGHT" -> Right
   | "LEFT" -> Left
-  | action ->
-    Utils.wrap_error Utils.error (Format.sprintf "Unknown action %s" action)
+  | action -> Utils.error (Format.sprintf "Unknown action %s" action)
 
 (** [to_string field json] extracts string date from [field] in a
     [Yojson.Basic.t] object [json]. Calls [Utils.err_invalid_type] if type is
@@ -29,9 +28,8 @@ let to_direction = function
 let to_string field json =
   match Basic.Util.member field json with
   | `String s -> s
-  | (`List _ | `Assoc _) as t ->
-    Utils.wrap_error Utils.err_invalid_type true t field
-  | t -> Utils.wrap_error Utils.err_invalid_type false t field
+  | (`List _ | `Assoc _) as t -> Utils.err_invalid_type true t field
+  | t -> Utils.err_invalid_type false t field
 
 (** [to_string_option field json] extracts string list data from [field] in a
     [Yojson.Basic.t] object [json]. Calls [Utils.err_invalid_type] if type is
@@ -42,11 +40,11 @@ let to_string_list field json =
     List.map
       (fun s ->
         match Basic.Util.to_string_option s with
-        | None -> Utils.wrap_error Utils.err_invalid_type false `Null field
+        | None -> Utils.err_invalid_type false `Null field
         | Some s -> s )
       l
-  | `Assoc _a as t -> Utils.wrap_error Utils.err_invalid_type true t field
-  | t -> Utils.wrap_error Utils.err_invalid_type false t field
+  | `Assoc _a as t -> Utils.err_invalid_type true t field
+  | t -> Utils.err_invalid_type false t field
 
 (** [to_assoc_knv_list field json] extracts a [(string * Yojson.Basic.t) list]
     from [field] that is contained in the [json] object. Calls
@@ -54,8 +52,8 @@ let to_string_list field json =
 let to_assoc_knv_list field json =
   match Basic.Util.member field json with
   | `Assoc _a as t -> Yojson.Basic.Util.to_assoc t
-  | `List _l as t -> Utils.wrap_error Utils.err_invalid_type true t field
-  | t -> Utils.wrap_error Utils.err_invalid_type false t field
+  | `List _l as t -> Utils.err_invalid_type true t field
+  | t -> Utils.err_invalid_type false t field
 
 (** [get_transitions v] returns a
     [(read:string * (to_state:string * write:read * action:direction)) list]
@@ -70,9 +68,8 @@ let get_transitions = function
           , to_string "write" l
           , to_direction (to_string "action" l) ) ) )
       l
-  | `Assoc _a as t ->
-    Utils.wrap_error Utils.err_invalid_type true t "transitions"
-  | t -> Utils.wrap_error Utils.err_invalid_type false t "transitions"
+  | `Assoc _a as t -> Utils.err_invalid_type true t "transitions"
+  | t -> Utils.err_invalid_type false t "transitions"
 
 (** [to_transition_table alphabet states transitions] returns a
     [ (state:string * read:string) (to_state:string * write:read * action:direction) Hashtbl.t].
@@ -89,7 +86,7 @@ let to_transition_table states (transitions : (string * Basic.t) list) =
           | None ->
             Utils.assert_transition_ok transitbl t state_key read_key states
           | Some _transitionstate ->
-            Utils.wrap_error Utils.error
+            Utils.error
               (Format.sprintf
                  {|Duplicate transition. State transition (%s) is already indexed somewhere in "transitions"@.|}
                  state_key ) )
@@ -102,8 +99,8 @@ let to_transition_table states (transitions : (string * Basic.t) list) =
     to the function handling the conversion to a type [Hashtbl.t] *)
 let to_transitions_tbl states field = function
   | `Assoc _l as t -> to_assoc_knv_list field t |> to_transition_table states
-  | `List _l as t -> Utils.wrap_error Utils.err_invalid_type true t field
-  | t -> Utils.wrap_error Utils.err_invalid_type false t field
+  | `List _l as t -> Utils.err_invalid_type true t field
+  | t -> Utils.err_invalid_type false t field
 
 (** [to_states_tbl initial finals states] takes a [string list] of states, and
     converts it to a [string (is_initial:bool * is_final:bool) Hashtbl] and
@@ -118,8 +115,8 @@ let to_states_tbl initial finals states =
       | None ->
         Hashtbl.add tbl state (String.equal initial state, List.mem state finals)
       | Some (_init, _final) ->
-        Utils.wrap_error Utils.error
-          (Format.sprintf "State %s seems to be defined twice" state) )
+        Utils.error (Format.sprintf "State %s seems to be defined twice" state)
+      )
     states;
   tbl
 
@@ -130,7 +127,7 @@ let get_value_and_check errmsg v check =
   if check v then
     v
   else
-    Utils.wrap_error Utils.error (Format.sprintf "%s %s" errmsg v)
+    Utils.error (Format.sprintf "%s %s" errmsg v)
 
 (** [convert_json jsonfile] takes [jsonfile] and converts it to a
     [Yojson.Basic.t] json object *)
@@ -138,7 +135,7 @@ let convert_json jsonfile =
   if Sys.file_exists jsonfile then
     Basic.from_file jsonfile
   else
-    Utils.wrap_error Utils.error (Format.sprintf "Impossible to read file")
+    Utils.error (Format.sprintf "Impossible to read file")
 
 let get_name json jsonfile =
   let jsonfile = Filename.basename jsonfile in
@@ -151,8 +148,7 @@ let get_alphabet json =
   if List.for_all (fun s -> String.length s = 1) alphabet_field_value then
     alphabet_field_value
   else
-    Utils.wrap_error Utils.error
-      "Alphabet must be a list of strings of length equal to 1."
+    Utils.error "Alphabet must be a list of strings of length equal to 1."
 
 let get_blank json alphabet =
   get_value_and_check "Alphabet does not contain blank:"
@@ -169,8 +165,7 @@ let get_final json states =
       if List.mem final states then
         ()
       else
-        Utils.wrap_error Utils.error
-          (Format.sprintf "State %s is not a defined state" final) )
+        Utils.error (Format.sprintf "State %s is not a defined state" final) )
     finals_field_value;
   finals_field_value
 

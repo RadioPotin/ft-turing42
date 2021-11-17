@@ -2,19 +2,17 @@
     if all is good *)
 let check_input input alphabet blank =
   if String.contains input (String.get blank 0) then
-    Utils.wrap_error Utils.error
-      "Invalid input, blank character cannot be in input"
+    Utils.error "Invalid input, blank character cannot be in input"
   else
     String.iter
       (fun c ->
         if not (List.exists (fun alpha -> String.get alpha 0 = c) alphabet) then
-          Utils.wrap_error Utils.error
-            "Invalid input, unknown character cannot be in input"
+          Utils.error "Invalid input, unknown character cannot be in input"
         else
           () )
       input;
   match String.length input with
-  | 0 -> Utils.wrap_error Utils.error "Invalid input, length = 0"
+  | 0 -> Utils.error "Invalid input, length = 0"
   | n -> n
 
 (** [convert input blank length] convert a string input into a resizable vector *)

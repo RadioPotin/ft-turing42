@@ -14,20 +14,13 @@ let err_invalid_type std t field =
     field;
   raise Error
 
-(** [wrap_error f]*)
-let wrap_error f =
-  try f with
-  | Error ->
-    Format.eprintf "EXITING@.";
-    exit 1
-
 (** [assert_transition_ok transitbl t state_key read_key alphabet states]
     asserts a given transition is coherent and complies with specifications of
     turing machine definition. *)
 let assert_transition_ok transitbl t state_key read_key states =
   let to_state, _write, _ = t in
   if not (List.mem to_state states) then
-    wrap_error error
+    error
       (Format.sprintf {|"to_state" value %s is undefined in transition %s|}
          to_state state_key )
   else

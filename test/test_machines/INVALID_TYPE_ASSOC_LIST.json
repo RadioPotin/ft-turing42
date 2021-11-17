@@ -1,0 +1,27 @@
+{
+  "name": "INVALID_TYPE_ASSOC_LIST",
+  "alphabet": [
+    "1",
+    ".",
+    "-",
+    "="
+  ],
+  "blank": ".",
+  "states": [
+    "scanright",
+    "eraseone",
+    "subone",
+    "skip",
+    "HALT"
+  ],
+  "initial": "scanright",
+  "finals": [
+    "HALT"
+  ],
+  "transitions": [
+    "lol",
+    "im",
+    "in",
+    "danger"
+  ]
+}

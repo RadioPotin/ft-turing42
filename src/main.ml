@@ -23,11 +23,14 @@ let usage =
 let main jsonfile input =
   let ( (_name, alphabet, blank, states_tbl, initial, _finals, transitions_tbl)
       as machine ) =
-    Lang.to_machine jsonfile
+    match Lang.to_machine jsonfile with
+    | exception Utils.Error -> exit 1
+    | machine -> machine
   in
   Pp.machine Format.std_formatter machine;
   let machine = (alphabet, blank, initial, (states_tbl, transitions_tbl)) in
-  Execute.interpreter Format.std_formatter (machine, input)
+  try Execute.interpreter Format.std_formatter (machine, input) with
+  | Utils.Error -> exit 1
 
 let ft_turing = Term.(const main $ jsonfile $ input)
 

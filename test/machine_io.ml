@@ -176,15 +176,6 @@ let zero_two_n_valid_input =
 [.x.y<.>.] (END, .) -> ( HALT, ., RIGHT )
 |}
     )
-  ; ( "000"
-    , {|[<0>00....] (q1, 0) -> ( q2, ., RIGHT )
-[.<0>0....] (q2, 0) -> ( q3, x, RIGHT )
-[.x<0>....] (q3, 0) -> ( q4, 0, RIGHT )
-[.x0<.>...] (q4, .) -> ( FALSE, ., RIGHT )
-[.x0.<.>..] (FALSE, .) -> ( END, n, RIGHT )
-[.x0.n<.>.] (END, .) -> ( HALT, ., RIGHT )
-|}
-    )
   ; ( "0000"
     , {|[<0>000....] (q1, 0) -> ( q2, ., RIGHT )
 [.<0>00....] (q2, 0) -> ( q3, x, RIGHT )
@@ -214,7 +205,16 @@ let zero_two_n_valid_input =
   ]
 
 let zero_two_n_invalid_input =
-  []
+  [ ( "000"
+    , {|[<0>00....] (q1, 0) -> ( q2, ., RIGHT )
+[.<0>0....] (q2, 0) -> ( q3, x, RIGHT )
+[.x<0>....] (q3, 0) -> ( q4, 0, RIGHT )
+[.x0<.>...] (q4, .) -> ( FALSE, ., RIGHT )
+[.x0.<.>..] (FALSE, .) -> ( END, n, RIGHT )
+[.x0.n<.>.] (END, .) -> ( HALT, ., RIGHT )
+|}
+    )
+  ]
 
 let zero_two_n_definition =
   {|********************************************************************************
@@ -372,7 +372,10 @@ let palindrome_valid_input =
 [.0n<.>.] (END, .) -> ( HALT, ., RIGHT )
 |}
     )
-  ; ( "011"
+  ]
+
+let palindrome_invalid_input =
+  [ ( "011"
     , {|[<0>11...] (q0, 0) -> ( q1, ., RIGHT )
 [.<1>1...] (q1, 1) -> ( q3, 1, RIGHT )
 [.1<1>...] (q3, 1) -> ( q3, 1, RIGHT )
@@ -396,9 +399,6 @@ let palindrome_valid_input =
 |}
     )
   ]
-
-let palindrome_invalid_input =
-  [   ]
 
 let palindrome_definition =
   {|********************************************************************************
@@ -451,6 +451,20 @@ Finals  : [ HALT ]
 |}
 
 let zero_n_one_n_valid_input =
+  [ ( "01"
+    , {|[<0>1..] (q0, 0) -> ( q1, a, RIGHT )
+[a<1>..] (q1, 1) -> ( q2, b, LEFT )
+[<a>b..] (q2, a) -> ( q0, a, RIGHT )
+[a<b>..] (q0, b) -> ( q3, b, RIGHT )
+[ab<.>.] (q3, .) -> ( TRUE, ., LEFT )
+[a<b>..] (TRUE, b) -> ( TRUE, b, RIGHT )
+[ab<.>.] (TRUE, .) -> ( END, y, RIGHT )
+[aby<.>] (END, .) -> ( HALT, ., LEFT )
+|}
+    )
+  ]
+
+let zero_n_one_n_invalid_input =
   [ ( "0"
     , {|[<0>..] (q0, 0) -> ( q1, a, RIGHT )
 [a<.>.] (q1, .) -> ( FALSE, ., LEFT )
@@ -463,17 +477,6 @@ let zero_n_one_n_valid_input =
     , {|[<1>..] (q0, 1) -> ( FALSE, 1, RIGHT )
 [1<.>.] (FALSE, .) -> ( END, n, RIGHT )
 [1n<.>] (END, .) -> ( HALT, ., LEFT )
-|}
-    )
-  ; ( "01"
-    , {|[<0>1..] (q0, 0) -> ( q1, a, RIGHT )
-[a<1>..] (q1, 1) -> ( q2, b, LEFT )
-[<a>b..] (q2, a) -> ( q0, a, RIGHT )
-[a<b>..] (q0, b) -> ( q3, b, RIGHT )
-[ab<.>.] (q3, .) -> ( TRUE, ., LEFT )
-[a<b>..] (TRUE, b) -> ( TRUE, b, RIGHT )
-[ab<.>.] (TRUE, .) -> ( END, y, RIGHT )
-[aby<.>] (END, .) -> ( HALT, ., LEFT )
 |}
     )
   ; ( "011"
@@ -489,8 +492,6 @@ let zero_n_one_n_valid_input =
 |}
     )
   ]
-
-let zero_n_one_n_invalid_input = [  ]
 
 let zero_n_one_n_definition =
   {|********************************************************************************
