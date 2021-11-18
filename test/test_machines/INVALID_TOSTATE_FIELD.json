@@ -1,5 +1,5 @@
 {
-  "name": "INVALID_DUPLICATE_STATE",
+  "name": "INVALID_TOSTATE_FIELD",
   "alphabet": [
     "1",
     ".",
@@ -19,16 +19,10 @@
     "HALT"
   ],
   "transitions": {
-    "statewithduplicate": [
+    "scanright": [
       {
         "read": ".",
-        "to_state": "scanright",
-        "write": ".",
-        "action": "RIGHT"
-      },
-      {
-        "read": ".",
-        "to_state": "scanright",
+        "to_state": "BIMBAMBOUM",
         "write": ".",
         "action": "RIGHT"
       }

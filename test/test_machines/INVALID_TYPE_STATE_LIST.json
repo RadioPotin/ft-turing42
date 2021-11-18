@@ -1,0 +1,22 @@
+{
+  "name": "INVALID_TYPE_STATE_LIST",
+  "alphabet": [
+    "1",
+    ".",
+    "-",
+    "="
+  ],
+  "blank": ".",
+  "states": [
+    "scanright",
+    "eraseone",
+    "subone",
+    "skip",
+    "HALT"
+  ],
+  "initial": "scanright",
+  "finals": [
+    "HALT"
+  ],
+  "transitions":  []
+}

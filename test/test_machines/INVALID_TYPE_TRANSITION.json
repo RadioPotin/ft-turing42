@@ -1,0 +1,23 @@
+{
+  "name": "INVALID_TYPE_TRANSITION",
+  "alphabet": [
+    "1",
+    ".",
+    "-",
+    "="
+  ],
+  "blank": ".",
+  "states": [
+    "scanright",
+    "eraseone",
+    "subone",
+    "skip",
+    "HALT"
+  ],
+  "initial": "scanright",
+  "finals": [
+    "HALT"
+  ],
+  "transitions":
+  ["THIS IS INVALID"]
+}
