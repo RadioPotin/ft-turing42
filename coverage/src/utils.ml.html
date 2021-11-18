@@ -87,28 +87,28 @@
 (** [error msg] used for all matters of interruption of the program thoughout
     execution *)
 let error msg =
-  <span data-count="3">F</span>ormat.eprintf "error: %s@." msg;
-  <span data-count="3">r</span>aise Error
+  <span data-count="7">F</span>ormat.eprintf "error: %s@." msg;
+  <span data-count="7">r</span>aise Error
 
 (** [err_invalid_type std t field] is called whenever an error of typing occurs
     during parsing of json file *)
 let err_invalid_type std t field =
-  <span data-count="8">F</span>ormat.eprintf "error: Invalid type %s for field: \"%s\"@."
-    (Yojson.Basic.pretty_to_strin<span data-count="8">g</span> ~std t)
+  <span data-count="12">F</span>ormat.eprintf "error: Invalid type %s for field: \"%s\"@."
+    (Yojson.Basic.pretty_to_strin<span data-count="12">g</span> ~std t)
     field;
-  <span data-count="8">r</span>aise Error
+  <span data-count="12">r</span>aise Error
 
 (** [assert_transition_ok transitbl t state_key read_key alphabet states]
     asserts a given transition is coherent and complies with specifications of
     turing machine definition. *)
 let assert_transition_ok transitbl t state_key read_key states =
-  <span data-count="95">l</span>et to_state, _write, _ = t in
-  if not (List.me<span data-count="95">m</span> to_state states) then
+  <span data-count="100">l</span>et to_state, _write, _ = t in
+  if not (List.me<span data-count="100">m</span> to_state states) then
     <span data-count="0">e</span>rror
       (Format.sprint<span data-count="0">f</span> {|"to_state" value %s is undefined in transition %s|}
          to_state state_key )
   else
-    <span data-count="95">H</span>ashtbl.add transitbl (state_key, read_key) t
+    <span data-count="100">H</span>ashtbl.add transitbl (state_key, read_key) t
 </code></pre>
       </div>
     </div>

@@ -14,20 +14,13 @@
           <span class="dirname">src/</span>lang.ml
         </a>
       </h1>
-      <h2>87.63%</h2>
+      <h2>95.88%</h2>
     </div>
     <div id="navbar">
-      <span class="unvisited" style="top:17.20%"></span>
-      <span class="unvisited" style="top:23.12%"></span>
-      <span class="unvisited" style="top:38.71%"></span>
-      <span class="unvisited" style="top:47.31%"></span>
-      <span class="unvisited" style="top:48.39%"></span>
       <span class="unvisited" style="bottom:45.16%"></span>
       <span class="unvisited" style="bottom:44.62%"></span>
       <span class="unvisited" style="bottom:37.10%"></span>
       <span class="unvisited" style="bottom:36.56%"></span>
-      <span class="unvisited" style="bottom:18.82%"></span>
-      <span class="unvisited" style="bottom:9.68%"></span>
     </div>
     <div id="report">
       <div id="lines-layer">
@@ -63,7 +56,7 @@
 <a id="L29"></a><span class="visited"> </span>
 <a id="L30"></a><span class="visited"> </span>
 <a id="L31"></a><span class="visited"> </span>
-<a id="L32"></a><span class="unvisited"> </span>
+<a id="L32"></a><span class="visited"> </span>
 <a id="L33"></a><span > </span>
 <a id="L34"></a><span > </span>
 <a id="L35"></a><span > </span>
@@ -74,7 +67,7 @@
 <a id="L40"></a><span > </span>
 <a id="L41"></a><span > </span>
 <a id="L42"></a><span class="visited"> </span>
-<a id="L43"></a><span class="unvisited"> </span>
+<a id="L43"></a><span class="visited"> </span>
 <a id="L44"></a><span class="visited"> </span>
 <a id="L45"></a><span > </span>
 <a id="L46"></a><span class="visited"> </span>
@@ -103,7 +96,7 @@
 <a id="L69"></a><span class="visited"> </span>
 <a id="L70"></a><span > </span>
 <a id="L71"></a><span class="visited"> </span>
-<a id="L72"></a><span class="unvisited"> </span>
+<a id="L72"></a><span class="visited"> </span>
 <a id="L73"></a><span > </span>
 <a id="L74"></a><span > </span>
 <a id="L75"></a><span > </span>
@@ -119,9 +112,9 @@
 <a id="L85"></a><span class="visited"> </span>
 <a id="L86"></a><span class="visited"> </span>
 <a id="L87"></a><span > </span>
-<a id="L88"></a><span class="unvisited"> </span>
+<a id="L88"></a><span class="visited"> </span>
 <a id="L89"></a><span > </span>
-<a id="L90"></a><span class="unvisited"> </span>
+<a id="L90"></a><span class="visited"> </span>
 <a id="L91"></a><span > </span>
 <a id="L92"></a><span > </span>
 <a id="L93"></a><span class="visited"> </span>
@@ -182,7 +175,7 @@
 <a id="L148"></a><span class="visited"> </span>
 <a id="L149"></a><span class="visited"> </span>
 <a id="L150"></a><span > </span>
-<a id="L151"></a><span class="unvisited"> </span>
+<a id="L151"></a><span class="visited"> </span>
 <a id="L152"></a><span > </span>
 <a id="L153"></a><span > </span>
 <a id="L154"></a><span class="visited"> </span>
@@ -199,7 +192,7 @@
 <a id="L165"></a><span class="visited"> </span>
 <a id="L166"></a><span class="visited"> </span>
 <a id="L167"></a><span > </span>
-<a id="L168"></a><span class="unvisited"> </span>
+<a id="L168"></a><span class="visited"> </span>
 <a id="L169"></a><span > </span>
 <a id="L170"></a><span class="visited"> </span>
 <a id="L171"></a><span > </span>
@@ -429,30 +422,30 @@ let from_direction = function
 (** [to_direction action] Function is used in parsing to encode action fields in
     transitions definitions *)
 let to_direction = function
-  | <span data-count="70">"</span>RIGHT" -&gt; Right
-  | <span data-count="25">"</span>LEFT" -&gt; Left
+  | <span data-count="75">"</span>RIGHT" -&gt; Right
+  | <span data-count="28">"</span>LEFT" -&gt; Left
   | <span data-count="1">a</span>ction -&gt; Utils.error (Format.sprint<span data-count="1">f</span> "Unknown action %s" action)
 
 (** [to_string field json] extracts string date from [field] in a
     [Yojson.Basic.t] object [json]. Calls [Utils.err_invalid_type] if type is
     incorrect*)
 let to_string field json =
-  <span data-count="424">m</span>atch Basic.Util.member field json with
-  | <span data-count="422">`</span>String s -&gt; s
+  <span data-count="477">m</span>atch Basic.Util.member field json with
+  | <span data-count="474">`</span>String s -&gt; s
   | (<span data-count="1">`</span>List _ | <span data-count="1">`</span>Assoc _) as t -&gt; Utils.err_invalid_type true t field
-  | <span data-count="0">t</span> -&gt; Utils.err_invalid_type false t field
+  | <span data-count="1">t</span> -&gt; Utils.err_invalid_type false t field
 
 (** [to_string_option field json] extracts string list data from [field] in a
     [Yojson.Basic.t] object [json]. Calls [Utils.err_invalid_type] if type is
     incorrect *)
 let to_string_list field json =
-  <span data-count="40">m</span>atch Basic.Util.member field json with
-  | <span data-count="38">`</span>List l -&gt;
+  <span data-count="60">m</span>atch Basic.Util.member field json with
+  | <span data-count="58">`</span>List l -&gt;
     List.map
       (fun s -&gt;
-        <span data-count="146">m</span>atch Basic.Util.to_string_option s with
-        | <span data-count="0">N</span>one -&gt; Utils.err_invalid_type false `Null field
-        | <span data-count="146">S</span>ome s -&gt; s )
+        <span data-count="214">m</span>atch Basic.Util.to_string_option s with
+        | <span data-count="1">N</span>one -&gt; Utils.err_invalid_type false `Null field
+        | <span data-count="213">S</span>ome s -&gt; s )
       l
   | <span data-count="1">`</span>Assoc _a as t -&gt; Utils.err_invalid_type true t field
   | <span data-count="1">t</span> -&gt; Utils.err_invalid_type false t field
@@ -461,9 +454,9 @@ let to_string_list field json =
     from [field] that is contained in the [json] object. Calls
     [Utils.err_invalid_type] if type is incorrect *)
 let to_assoc_knv_list field json =
-  <span data-count="10">m</span>atch Basic.Util.member field json with
-  | <span data-count="7">`</span>Assoc _a as t -&gt; Yojson.Basic.Util.to_assoc t
-  | <span data-count="1">`</span>List _l as t -&gt; Utils.err_invalid_type true t field
+  <span data-count="14">m</span>atch Basic.Util.member field json with
+  | <span data-count="10">`</span>Assoc _a as t -&gt; Yojson.Basic.Util.to_assoc t
+  | <span data-count="2">`</span>List _l as t -&gt; Utils.err_invalid_type true t field
   | <span data-count="2">t</span> -&gt; Utils.err_invalid_type false t field
 
 (** [get_transitions v] returns a
@@ -471,37 +464,37 @@ let to_assoc_knv_list field json =
     found in [Yojson.Basic.t] object [v]. Calls [Utils.err_invalid_type] if type
     is incorrect *)
 let get_transitions = function
-  | <span data-count="35">`</span>List l -&gt;
+  | <span data-count="38">`</span>List l -&gt;
     List.map
       (fun l -&gt;
-        <span data-count="96">(</span> to_strin<span data-count="95">g</span> "read" l
-        , ( to_strin<span data-count="95">g</span> "to_state" l
-          , to_strin<span data-count="95">g</span> "write" l
-          , to_directio<span data-count="95">n</span> (to_strin<span data-count="96">g</span> "action" l) ) ) )
+        <span data-count="104">(</span> to_strin<span data-count="103">g</span> "read" l
+        , ( to_strin<span data-count="103">g</span> "to_state" l
+          , to_strin<span data-count="103">g</span> "write" l
+          , to_directio<span data-count="103">n</span> (to_strin<span data-count="104">g</span> "action" l) ) ) )
       l
   | <span data-count="1">`</span>Assoc _a as t -&gt; Utils.err_invalid_type true t "transitions"
-  | <span data-count="0">t</span> -&gt; Utils.err_invalid_type false t "transitions"
+  | <span data-count="1">t</span> -&gt; Utils.err_invalid_type false t "transitions"
 
 (** [to_transition_table alphabet states transitions] returns a
     [ (state:string * read:string) (to_state:string * write:read * action:direction) Hashtbl.t].
     This function also runs several kinds of sanity checks on the validity of
     transitions described in the json file *)
 let to_transition_table states (transitions : (string * Basic.t) list) =
-  <span data-count="7">l</span>et transitbl = Hashtbl.create 512 in
-  <span data-count="7">L</span>ist.iter
+  <span data-count="10">l</span>et transitbl = Hashtbl.create 512 in
+  <span data-count="10">L</span>ist.iter
     (fun (state_key, v) -&gt;
-      <span data-count="36">L</span>ist.iter
+      <span data-count="40">L</span>ist.iter
         (fun (read_key, (t : transition)) -&gt;
-          <span data-count="95">l</span>et collision = Hashtbl.find_opt transitbl (state_key, read_key) in
-          <span data-count="95">m</span>atch collision with
-          | <span data-count="95">N</span>one -&gt;
+          <span data-count="102">l</span>et collision = Hashtbl.find_opt transitbl (state_key, read_key) in
+          <span data-count="102">m</span>atch collision with
+          | <span data-count="100">N</span>one -&gt;
             Utils.assert_transition_ok transitbl t state_key read_key states
-          | <span data-count="0">S</span>ome _transitionstate -&gt;
+          | <span data-count="2">S</span>ome _transitionstate -&gt;
             Utils.error
-              (Format.sprint<span data-count="0">f</span>
-                 {|Duplicate transition. State transition (%s) is already indexed somewhere in "transitions"@.|}
+              (Format.sprint<span data-count="2">f</span>
+                 {|Duplicate transition. State transition (%s) is already indexed somewhere in "transitions"|}
                  state_key ) )
-        (get_transition<span data-count="34">s</span> v) )
+        (get_transition<span data-count="37">s</span> v) )
     transitions;
   <span data-count="5">t</span>ransitbl
 
@@ -509,7 +502,7 @@ let to_transition_table states (transitions : (string * Basic.t) list) =
     in [field] in the json object to [(string * Yojson.Basic.t) list] and feeds
     to the function handling the conversion to a type [Hashtbl.t] *)
 let to_transitions_tbl states field = function
-  | <span data-count="10">`</span>Assoc _l as t -&gt; to_assoc_knv_list field t |&gt; <span data-count="7">t</span>o_transition_table states
+  | <span data-count="14">`</span>Assoc _l as t -&gt; to_assoc_knv_list field t |&gt; <span data-count="10">t</span>o_transition_table states
   | <span data-count="0">`</span>List _l as t -&gt; Utils.err_invalid_type true t field
   | <span data-count="0">t</span> -&gt; Utils.err_invalid_type false t field
 
@@ -518,82 +511,82 @@ let to_transitions_tbl states field = function
     calls [Utils.error] if a given state appears several times in the "states"
     field in the json file *)
 let to_states_tbl initial finals states =
-  <span data-count="10">l</span>et tbl = Hashtbl.create 512 in
-  <span data-count="10">L</span>ist.iter
+  <span data-count="14">l</span>et tbl = Hashtbl.create 512 in
+  <span data-count="14">L</span>ist.iter
     (fun state -&gt;
-      <span data-count="65">l</span>et collision = Hashtbl.find_opt tbl state in
-      <span data-count="65">m</span>atch collision with
-      | <span data-count="65">N</span>one -&gt;
-        Hashtbl.add tbl state (String.equa<span data-count="65">l</span> initial state, List.me<span data-count="65">m</span> state finals)
+      <span data-count="85">l</span>et collision = Hashtbl.find_opt tbl state in
+      <span data-count="85">m</span>atch collision with
+      | <span data-count="85">N</span>one -&gt;
+        Hashtbl.add tbl state (String.equa<span data-count="85">l</span> initial state, List.me<span data-count="85">m</span> state finals)
       | <span data-count="0">S</span>ome (_init, _final) -&gt;
         Utils.error (Format.sprint<span data-count="0">f</span> "State %s seems to be defined twice" state)
       )
     states;
-  <span data-count="10">t</span>bl
+  <span data-count="14">t</span>bl
 
 (** [get_value_and_check errmsg v check] simple generic function that takes an
     error message to feed to [Utils.error] if needed, a value [v] and a [check]
     function of type [(v:string -&gt; bool)] *)
 let get_value_and_check errmsg v check =
-  <span data-count="41">i</span>f check v then
-    <span data-count="40">v</span>
+  <span data-count="61">i</span>f check v then
+    <span data-count="60">v</span>
   else
     <span data-count="1">U</span>tils.error (Format.sprint<span data-count="1">f</span> "%s %s" errmsg v)
 
 (** [convert_json jsonfile] takes [jsonfile] and converts it to a
     [Yojson.Basic.t] json object *)
 let convert_json jsonfile =
-  <span data-count="16">i</span>f Sys.file_exists jsonfile then
-    <span data-count="15">B</span>asic.from_file jsonfile
+  <span data-count="24">i</span>f Sys.file_exists jsonfile then
+    <span data-count="23">B</span>asic.from_file jsonfile
   else
     <span data-count="1">U</span>tils.error (Format.sprint<span data-count="1">f</span> "Impossible to read file")
 
 let get_name json jsonfile =
-  <span data-count="15">l</span>et jsonfile = Filename.basename jsonfile in
-  <span data-count="15">g</span>et_value_and_check "\"name\" field and filename are different:"
-    (to_strin<span data-count="15">g</span> "name" json)
-    (String.equa<span data-count="15">l</span> (Filename.chop_extensio<span data-count="15">n</span> jsonfile))
+  <span data-count="23">l</span>et jsonfile = Filename.basename jsonfile in
+  <span data-count="23">g</span>et_value_and_check "\"name\" field and filename are different:"
+    (to_strin<span data-count="23">g</span> "name" json)
+    (String.equa<span data-count="23">l</span> (Filename.chop_extensio<span data-count="23">n</span> jsonfile))
 
 let get_alphabet json =
-  <span data-count="14">l</span>et alphabet_field_value = to_string_list "alphabet" json in
-  <span data-count="14">i</span>f List.for_all (fun s -&gt; <span data-count="51">S</span>tring.lengt<span data-count="51">h</span> s = 1) alphabet_field_value then
-    <span data-count="14">a</span>lphabet_field_value
+  <span data-count="22">l</span>et alphabet_field_value = to_string_list "alphabet" json in
+  <span data-count="22">i</span>f List.for_all (fun s -&gt; <span data-count="80">S</span>tring.lengt<span data-count="80">h</span> s = 1) alphabet_field_value then
+    <span data-count="21">a</span>lphabet_field_value
   else
-    <span data-count="0">U</span>tils.error "Alphabet must be a list of strings of length equal to 1."
+    <span data-count="1">U</span>tils.error "Alphabet must be a list of strings of length equal to 1."
 
 let get_blank json alphabet =
-  <span data-count="14">g</span>et_value_and_check "Alphabet does not contain blank:"
-    (to_strin<span data-count="14">g</span> "blank" json) (fun v -&gt; <span data-count="14">L</span>ist.mem v alphabet)
+  <span data-count="21">g</span>et_value_and_check "Alphabet does not contain blank:"
+    (to_strin<span data-count="20">g</span> "blank" json) (fun v -&gt; <span data-count="20">L</span>ist.mem v alphabet)
 
 let get_initial json states =
-  <span data-count="14">g</span>et_value_and_check "States list does not contain initial state:"
-    (to_strin<span data-count="12">g</span> "initial" json) (fun v -&gt; <span data-count="12">L</span>ist.mem v states)
+  <span data-count="20">g</span>et_value_and_check "States list does not contain initial state:"
+    (to_strin<span data-count="18">g</span> "initial" json) (fun v -&gt; <span data-count="18">L</span>ist.mem v states)
 
 let get_final json states =
-  <span data-count="12">l</span>et finals_field_value = to_string_list "finals" json in
-  <span data-count="10">L</span>ist.iter
+  <span data-count="18">l</span>et finals_field_value = to_string_list "finals" json in
+  <span data-count="15">L</span>ist.iter
     (fun final -&gt;
-      <span data-count="10">i</span>f List.mem final states then
-        <span data-count="10">(</span>)
+      <span data-count="15">i</span>f List.mem final states then
+        <span data-count="14">(</span>)
       else
-        <span data-count="0">U</span>tils.error (Format.sprint<span data-count="0">f</span> "State %s is not a defined state" final) )
+        <span data-count="1">U</span>tils.error (Format.sprint<span data-count="1">f</span> "State %s is not a defined state" final) )
     finals_field_value;
-  <span data-count="10">f</span>inals_field_value
+  <span data-count="14">f</span>inals_field_value
 
 (** [to_machnine jsonfile] function parses the jsonfile and does all necessary
     sanity checks and conversions for the interpreter *)
 let to_machine jsonfile =
-  <span data-count="16">l</span>et json = convert_json jsonfile in
-  <span data-count="15">l</span>et name = get_name json jsonfile in
+  <span data-count="24">l</span>et json = convert_json jsonfile in
+  <span data-count="23">l</span>et name = get_name json jsonfile in
   (* Maybe check if an alphabet element is defined twice *)
-  <span data-count="14">l</span>et alphabet = get_alphabet json in
-  <span data-count="14">l</span>et blank = get_blank json alphabet in
-  <span data-count="14">l</span>et states = to_string_list "states" json in
-  <span data-count="14">l</span>et initial = get_initial json states in
+  <span data-count="22">l</span>et alphabet = get_alphabet json in
+  <span data-count="21">l</span>et blank = get_blank json alphabet in
+  <span data-count="20">l</span>et states = to_string_list "states" json in
+  <span data-count="20">l</span>et initial = get_initial json states in
   (* Maybe check if a final state is defined twice *)
-  <span data-count="12">l</span>et finals = get_final json states in
-  <span data-count="10">l</span>et states_tbl = to_states_tbl initial finals states in
-  <span data-count="10">l</span>et transitions_tbl = to_transitions_tbl states "transitions" json in
+  <span data-count="18">l</span>et finals = get_final json states in
+  <span data-count="14">l</span>et states_tbl = to_states_tbl initial finals states in
+  <span data-count="14">l</span>et transitions_tbl = to_transitions_tbl states "transitions" json in
   <span data-count="5">(</span>name, alphabet, blank, states_tbl, initial, finals, transitions_tbl)
 </code></pre>
       </div>
