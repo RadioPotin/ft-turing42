@@ -14,11 +14,9 @@
           <span class="dirname">src/</span>utils.ml
         </a>
       </h1>
-      <h2>80.00%</h2>
+      <h2>100.00%</h2>
     </div>
     <div id="navbar">
-      <span class="unvisited" style="bottom:14.81%"></span>
-      <span class="unvisited" style="bottom:11.11%"></span>
     </div>
     <div id="report">
       <div id="lines-layer">
@@ -45,8 +43,8 @@
 <a id="L20"></a><span > </span>
 <a id="L21"></a><span class="visited"> </span>
 <a id="L22"></a><span class="visited"> </span>
-<a id="L23"></a><span class="unvisited"> </span>
-<a id="L24"></a><span class="unvisited"> </span>
+<a id="L23"></a><span class="visited"> </span>
+<a id="L24"></a><span class="visited"> </span>
 <a id="L25"></a><span > </span>
 <a id="L26"></a><span > </span>
 <a id="L27"></a><span class="visited"> </span>
@@ -87,16 +85,16 @@
 (** [error msg] used for all matters of interruption of the program thoughout
     execution *)
 let error msg =
-  <span data-count="7">F</span>ormat.eprintf "error: %s@." msg;
-  <span data-count="7">r</span>aise Error
+  <span data-count="8">F</span>ormat.eprintf "error: %s@." msg;
+  <span data-count="8">r</span>aise Error
 
 (** [err_invalid_type std t field] is called whenever an error of typing occurs
     during parsing of json file *)
 let err_invalid_type std t field =
-  <span data-count="12">F</span>ormat.eprintf "error: Invalid type %s for field: \"%s\"@."
-    (Yojson.Basic.pretty_to_strin<span data-count="12">g</span> ~std t)
+  <span data-count="13">F</span>ormat.eprintf "error: Invalid type %s for field: \"%s\"@."
+    (Yojson.Basic.pretty_to_strin<span data-count="13">g</span> ~std t)
     field;
-  <span data-count="12">r</span>aise Error
+  <span data-count="13">r</span>aise Error
 
 (** [assert_transition_ok transitbl t state_key read_key alphabet states]
     asserts a given transition is coherent and complies with specifications of
@@ -104,11 +102,11 @@ let err_invalid_type std t field =
 let assert_transition_ok transitbl t state_key read_key states =
   <span data-count="100">l</span>et to_state, _write, _ = t in
   if not (List.me<span data-count="100">m</span> to_state states) then
-    <span data-count="0">e</span>rror
-      (Format.sprint<span data-count="0">f</span> {|"to_state" value %s is undefined in transition %s|}
+    <span data-count="1">e</span>rror
+      (Format.sprint<span data-count="1">f</span> {|"to_state" value %s is undefined in transition %s|}
          to_state state_key )
   else
-    <span data-count="100">H</span>ashtbl.add transitbl (state_key, read_key) t
+    <span data-count="99">H</span>ashtbl.add transitbl (state_key, read_key) t
 </code></pre>
       </div>
     </div>
