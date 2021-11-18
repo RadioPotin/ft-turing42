@@ -1,0 +1,37 @@
+{
+  "name": "INVALID_DUPLICATE_STATE",
+  "alphabet": [
+    "1",
+    ".",
+    "-",
+    "="
+  ],
+  "blank": ".",
+  "states": [
+    "scanright",
+    "eraseone",
+    "subone",
+    "skip",
+    "HALT"
+  ],
+  "initial": "scanright",
+  "finals": [
+    "HALT"
+  ],
+  "transitions": {
+    "statewithduplicate": [
+      {
+        "read": ".",
+        "to_state": "scanright",
+        "write": ".",
+        "action": "RIGHT"
+      },
+      {
+        "read": ".",
+        "to_state": "scanright",
+        "write": ".",
+        "action": "RIGHT"
+      }
+    ]
+  }
+}

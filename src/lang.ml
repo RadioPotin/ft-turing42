@@ -88,7 +88,7 @@ let to_transition_table states (transitions : (string * Basic.t) list) =
           | Some _transitionstate ->
             Utils.error
               (Format.sprintf
-                 {|Duplicate transition. State transition (%s) is already indexed somewhere in "transitions"@.|}
+                 {|Duplicate transition. State transition (%s) is already indexed somewhere in "transitions"|}
                  state_key ) )
         (get_transitions v) )
     transitions;

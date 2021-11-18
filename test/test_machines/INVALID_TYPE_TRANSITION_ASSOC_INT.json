@@ -1,0 +1,24 @@
+{
+  "name": "INVALID_TYPE_TRANSITION_ASSOC_INT",
+  "alphabet": [
+    "1",
+    ".",
+    "-",
+    "="
+  ],
+  "blank": ".",
+  "states": [
+    "scanright",
+    "eraseone",
+    "subone",
+    "skip",
+    "HALT"
+  ],
+  "initial": "scanright",
+  "finals": [
+    "HALT"
+  ],
+  "transitions": {
+    "scanright": 42
+  }
+}
