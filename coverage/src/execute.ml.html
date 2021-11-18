@@ -14,12 +14,10 @@
           <span class="dirname">src/</span>execute.ml
         </a>
       </h1>
-      <h2>88.57%</h2>
+      <h2>92.86%</h2>
     </div>
     <div id="navbar">
-      <span class="unvisited" style="top:4.03%"></span>
-      <span class="unvisited" style="top:8.06%"></span>
-      <span class="unvisited" style="top:12.10%"></span>
+      <span class="some-visited" style="top:4.03%"></span>
       <span class="unvisited" style="top:22.58%"></span>
       <span class="unvisited" style="bottom:33.87%"></span>
       <span class="unvisited" style="bottom:29.03%"></span>
@@ -32,17 +30,17 @@
 <a id="L2"></a><span > </span>
 <a id="L3"></a><span > </span>
 <a id="L4"></a><span class="visited"> </span>
-<a id="L5"></a><span class="unvisited"> </span>
+<a id="L5"></a><span class="some-visited"> </span>
 <a id="L6"></a><span > </span>
 <a id="L7"></a><span class="visited"> </span>
 <a id="L8"></a><span > </span>
 <a id="L9"></a><span class="visited"> </span>
-<a id="L10"></a><span class="unvisited"> </span>
+<a id="L10"></a><span class="visited"> </span>
 <a id="L11"></a><span > </span>
 <a id="L12"></a><span class="visited"> </span>
 <a id="L13"></a><span > </span>
 <a id="L14"></a><span > </span>
-<a id="L15"></a><span class="unvisited"> </span>
+<a id="L15"></a><span class="visited"> </span>
 <a id="L16"></a><span class="visited"> </span>
 <a id="L17"></a><span > </span>
 <a id="L18"></a><span > </span>
@@ -284,18 +282,18 @@
 <pre><code class="ocaml">(** [check_input input blank] does sanity checks on input and returns its length
     if all is good *)
 let check_input input alphabet blank =
-  <span data-count="30">i</span>f String.contains input (String.ge<span data-count="30">t</span> blank 0) then
-    <span data-count="0">U</span>tils.erro<span data-count="0">r</span> "Invalid input, blank character cannot be in input"
+  <span data-count="33">i</span>f String.contains input (String.ge<span data-count="33">t</span> blank 0) then
+    <span data-count="1">U</span>tils.erro<span data-count="0">r</span> "Invalid input, blank character cannot be in input"
   else
-    <span data-count="30">S</span>tring.ite<span data-count="30">r</span>
+    <span data-count="32">S</span>tring.ite<span data-count="31">r</span>
       (fun c -&gt;
-        <span data-count="77">i</span>f not (List.exist<span data-count="77">s</span> (fun alpha -&gt; <span data-count="128">S</span>tring.ge<span data-count="128">t</span> alpha 0 = c) alphabet) then
-          <span data-count="0">U</span>tils.error "Invalid input, unknown character cannot be in input"
+        <span data-count="78">i</span>f not (List.exist<span data-count="78">s</span> (fun alpha -&gt; <span data-count="132">S</span>tring.ge<span data-count="132">t</span> alpha 0 = c) alphabet) then
+          <span data-count="1">U</span>tils.error "Invalid input, unknown character cannot be in input"
         else
           <span data-count="77">(</span>) )
       input;
   match String.length input with
-  | <span data-count="0">0</span> -&gt; Utils.error "Invalid input, length = 0"
+  | <span data-count="1">0</span> -&gt; Utils.error "Invalid input, length = 0"
   | <span data-count="30">n</span> -&gt; n
 
 (** [convert input blank length] convert a string input into a resizable vector *)
@@ -392,7 +390,7 @@ let rec execution fmt ~print ((state_tbl, transitions_tbl) as tables) tape index
 (** [interpreter machine input] function sets up the execution of the turing
     machine [machine] on the [input]. *)
 let interpreter fmt (machine, input) =
-  <span data-count="30">l</span>et alphabet, blank, initial, tables = machine in
+  <span data-count="33">l</span>et alphabet, blank, initial, tables = machine in
   let initial_length = check_input input alphabet blank in
   <span data-count="30">l</span>et tape1 = convert input blank (initial_length * 2) in
   <span data-count="30">l</span>et read = safe_read tape1 0 in
