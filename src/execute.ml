@@ -75,25 +75,13 @@ let index_checker index tape =
   ) else
     index
 
-let safe_set tape index write =
-  if index < CCVector.size tape then
-    CCVector.set tape index write
-  else
-    assert false
-
-let safe_read tape index =
-  if index < CCVector.size tape then
-    CCVector.get tape index
-  else
-    assert false
-
 (** [execution tables tape index current_state] recursively reads and writes on
     given [tape] at given [index] in regards to [current state] by following the
     transitions found in transitions and states [tables] *)
 let rec execution fmt ~print ((state_tbl, transitions_tbl) as tables) tape index
     current_state =
   let index = index_checker index tape in
-  let read = safe_read tape index in
+  let read = CCVector.get tape index in
   match Hashtbl.find_opt transitions_tbl (current_state, read) with
   | None -> terminate fmt current_state read print tape index state_tbl
   | Some ((next_state, write, direction) as transition) ->
@@ -101,7 +89,7 @@ let rec execution fmt ~print ((state_tbl, transitions_tbl) as tables) tape index
     Pp.current_tape fmt current_tape index
       ((current_state, read), transition)
       print;
-    safe_set tape index write;
+    CCVector.set tape index write;
     execution fmt ~print tables tape
       (index + move_direction direction)
       next_state
@@ -112,7 +100,7 @@ let interpreter fmt (machine, input) =
   let alphabet, blank, initial, tables = machine in
   let initial_length = check_input input alphabet blank in
   let tape1 = convert input blank (initial_length * 2) in
-  let read = safe_read tape1 0 in
+  let read = CCVector.get tape1 0 in
   if not (List.mem read alphabet) then
     is_blocked fmt tape1 initial read 0 ~print:true
   else (

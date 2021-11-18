@@ -40,7 +40,7 @@ let test_parser () =
     ()
   else
     let fmt = Format.std_formatter in
-    comment fmt "\nSTARTING PARSING TESTS **************";
+    comment fmt "STARTING PARSING TESTS **************";
     List.iter
       (fun machinename -> run_test fmt ("test_machines/" ^ machinename))
       test_files;

@@ -534,3 +534,32 @@ Finals  : [ HALT ]
 (END, .) -> ( HALT, ., LEFT )
 ********************************************************************************
 |}
+
+let valid_multiple_finals_definition =
+  {|********************************************************************************
+
+*                                                                              *
+
+*                            VALID_MULTIPLE_FINALS                             *
+
+*                                                                              *
+
+********************************************************************************
+Alphabet: [ 1, ., -, = ]
+States  : [ scanright, eraseone, subone, HALT, skip, END ]
+Initial : scanright
+Finals  : [ HALT, END ]
+(subone, -) -> ( skip, -, LEFT )
+(subone, 1) -> ( subone, 1, LEFT )
+(skip, .) -> ( skip, ., LEFT )
+(skip, 1) -> ( scanright, ., RIGHT )
+(scanright, =) -> ( eraseone, ., LEFT )
+(scanright, .) -> ( scanright, ., RIGHT )
+(scanright, 1) -> ( scanright, 1, RIGHT )
+(scanright, -) -> ( scanright, -, RIGHT )
+(eraseone, 1) -> ( subone, =, LEFT )
+(eraseone, -) -> ( HALT, ., LEFT )
+********************************************************************************
+|}
+
+let invalid_input = [ ""; "."; "?" ]
