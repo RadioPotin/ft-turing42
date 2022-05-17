@@ -53,5 +53,32 @@ This will run all tests contained in the folder `test`.
 
 </ol>
 
-*WIP*
+##  Running in Docker
+
+The repo has a Dockerfile with everything necessary for you to just run.
+
+**Building image**
+```shell-session
+docker build -t <user>:<imagename> .
+```
+
+Make sure to replace build `name` and `user` accordingly.
+
+**Interactive mode**
+```shell-session
+docker run --rm -it --entrypoint bash <user>:<name>
+```
+
+**Running cli inside docker**
+Either:
+1. Wrap commands in `opam exec`
+```shell-session
+$ opam exec -- dune exec -- src/main.exe <machine> <input>
+```
+
+2. `eval $(opam env)` to have all required binaries in your path
+```shell-session
+$ eval $(opam env)
+$ dune exec -- src/main.exe <machine> <input>
+```
 
